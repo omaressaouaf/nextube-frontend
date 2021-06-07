@@ -5,10 +5,10 @@
 /* Tailwind components */
 @layer components {
   .btn-blue {
-    @apply bg-blue-600 ring-blue-200;
+    @apply bg-blue-600 ring-blue-200 ;
   }
   .btn-red {
-    @apply bg-red-600 ring-red-200;
+    @apply bg-red-600 ring-red-200 ;
   }
 }
 /* custom scroll */

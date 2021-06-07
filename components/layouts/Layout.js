@@ -3,34 +3,39 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
 
-export default function Layout({ children }) {
+const Layout = ({ title, children }) => {
   const [sidebarClosed, setSidebarClosed] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const sidebarLessPathnames = ["/videos/[id]", "/login", "/register"];
+    const sidebarLessPathnames = ["/videos/[id]", "/signin", "/signup"];
     setSidebarClosed(() => window.screen.width < 800 || sidebarLessPathnames.includes(router.pathname));
   }, [router.pathname]);
   return (
     <>
       <Head>
-        <title>NexTube</title>
+        <title>NexTube {title && `- ${title}`}</title>
         <meta name="description" content="The Next Youtube" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="bg-gray-100 h-min-screen">
-        {/* Topbar*/}
         <Topbar setSidebarClosed={setSidebarClosed} />
 
-        {/* Body wrapper*/}
         <div className="body-wrapper flex ">
-          {/* Sidebar  */}
-          <Sidebar sidebarClosed={sidebarClosed} setSidebarClosed={setSidebarClosed} />
-          {/* Content */}
+          <Sidebar sidebarClosed={sidebarClosed} />
+
           <div className="content container mx-auto px-10 py-5 flex-grow min-h-screen">{children}</div>
         </div>
       </div>
     </>
   );
-}
+};
+
+Layout.prototype = {
+  title: PropTypes.string,
+  children: PropTypes.any,
+};
+
+export default Layout;

@@ -2,8 +2,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Avatar from "../base/Avatar";
+import PropTypes from "prop-types";
 
-export default function Sidebar({ sidebarClosed, setSidebarClosed }) {
+const Sidebar = ({ sidebarClosed }) => {
   const [menuItems] = useState({
     home: [
       {
@@ -75,11 +76,11 @@ export default function Sidebar({ sidebarClosed, setSidebarClosed }) {
       >
         {Object.keys(menuItems).map(key => {
           return (
-            <div className="mb-6">
+            <div className="mb-6" key={key}>
               {key != "home" && <div className="uppercase px-6  text-sm mb-4">{key}</div>}
               {menuItems[key].map(item => {
                 return (
-                  <Link href={item.pathname}>
+                  <Link href={item.pathname} key={item.title}>
                     <a className={`flex items-center py-3 px-6 mb-2 text-black transition ${router.pathname == item.pathname ? "bg-gray-200" : "hover:bg-gray-100"}`}>
                       {item.image ? <Avatar className="w-7 mr-6" /> : <i className={`fa-lg fa-fw  mr-6 ${item.icon} ${router.pathname == item.pathname ? "text-red-600" : "text-gray-600"}`}></i>}
                       <span className="font-semibold  text-sm">{item.title}</span>
@@ -95,4 +96,10 @@ export default function Sidebar({ sidebarClosed, setSidebarClosed }) {
       {/* sidebar End */}
     </>
   );
-}
+};
+
+Sidebar.prototype = {
+  sidebarClosed: PropTypes.bool.isRequired,
+};
+
+export default Sidebar;

@@ -13,6 +13,7 @@ module.exports = {
     extend: {
       overflow: ["hover"],
       opacity: ['disabled'],
+      cursor : ['disabled']
     },
   },
   plugins: [],
