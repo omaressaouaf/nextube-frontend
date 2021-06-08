@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 const withAuth = WrappedComponent => {
   return props => {
     if (typeof window !== "undefined") {
-      const authUser = useSelector(state => state.authReducer.authUser);
+      const [authPending, authUser] = useSelector(state => [state.authReducer.authPending, state.authReducer.authUser]);
       const router = useRouter();
-      if (authUser) {
+      if (!authPending && authUser) {
         router.replace("/");
         return null;
       }

@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import "nprogress/nprogress.css";
 import "../bootstrap";
 import "@fortawesome/fontawesome-free/css/all.css";
+import Head from "next/head";
 import withStore from "../components/HOC/withStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -15,8 +16,12 @@ function MyApp({ Component, pageProps }) {
     dispatch(refreshToken());
   }, []);
 
-  if (authPending) return <h2>Auth Pending ....</h2>;
-  return <Component {...pageProps} />;
+  return (
+    <>
+      {authPending && <div id="preloader"></div>}
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default withStore(MyApp);

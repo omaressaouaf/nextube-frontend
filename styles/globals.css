@@ -5,10 +5,10 @@
 /* Tailwind components */
 @layer components {
   .btn-blue {
-    @apply bg-blue-600 ring-blue-200 ;
+    @apply bg-blue-600 ring-blue-200;
   }
   .btn-red {
-    @apply bg-red-600 ring-red-200 ;
+    @apply bg-red-600 ring-red-200;
   }
 }
 /* custom scroll */
@@ -39,4 +39,50 @@
 #nprogress .spinner-icon {
   border-top-color: red;
   border-left-color: red;
+}
+
+/* Preloader */
+#preloader {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  background: #F3F4F6;
+}
+
+#preloader:before {
+  content: "";
+  position: fixed;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  border: 6px solid #F3F4F6;
+  border-top-color: red;
+  border-bottom-color: red;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  -webkit-animation: animate-preloader 1s linear infinite;
+  animation: animate-preloader 1s linear infinite;
+}
+
+@-webkit-keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate-preloader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

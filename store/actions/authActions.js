@@ -2,33 +2,39 @@ import axios from "axios";
 import { clearLoading, setLoading, setServerErrors } from "./uiActions";
 import { authActionTypes } from "./types";
 
-export const refreshToken = () => async dispatch => {
-  try {
-    const { data } = await axios.put("/auth/refreshtoken");
-    dispatch({
-      type: authActionTypes.SET_AUTH_USER,
-      payload: {
-        user: data.user,
-        accessToken: data.accessToken,
-      },
-    });
-    axios.defaults.headers.common["Authorization"] = data.accessToken;
-  } catch (err) {
-    dispatch({
-      type: authActionTypes.SET_AUTH_USER,
-      payload: {
-        user: null,
-        accessToken: null,
-      },
-    });
-  }
+export const refreshToken = () => dispatch => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { data } = await axios.put("/auth/refreshtoken");
+      dispatch({
+        type: authActionTypes.SET_AUTH,
+        payload: {
+          user: data.user,
+          accessToken: data.accessToken,
+          accessTokenEndDate: data.accessTokenEndDate,
+        },
+      });
+      axios.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
+      resolve(data.accessToken);
+    } catch (err) {
+      dispatch({
+        type: authActionTypes.SET_AUTH,
+        payload: {
+          user: null,
+          accessToken: null,
+          accessTokenEndDate: null,
+        },
+      });
+      reject();
+    }
+  });
 };
 
-export const register = (channelName, email, password , router) => async dispatch => {
+export const register = (channelName, email, password, router) => async dispatch => {
   try {
     dispatch(setLoading("signup"));
     await axios.post("/auth/register", { channelName, email, password });
-    router.push('/signin')
+    router.push("/signin");
   } catch (err) {
     dispatch(setServerErrors("signup", err.response.data.message));
   } finally {
@@ -41,13 +47,14 @@ export const login = (email, password) => async dispatch => {
     dispatch(setLoading("signin"));
     const { data } = await axios.post("/auth/login", { email, password });
     dispatch({
-      type: authActionTypes.SET_AUTH_USER,
+      type: authActionTypes.SET_AUTH,
       payload: {
         user: data.user,
         accessToken: data.accessToken,
+        accessTokenEndDate: data.accessTokenEndDate,
       },
     });
-    axios.defaults.headers.common["Authorization"] = data.accessToken;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
   } catch (err) {
     dispatch(setServerErrors("signin", err.response.data.message));
   } finally {
@@ -58,14 +65,14 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     await axios.put("/auth/logout");
+  } finally {
     dispatch({
-      type: authActionTypes.SET_AUTH_USER,
+      type: authActionTypes.SET_AUTH,
       payload: {
         user: null,
         accessToken: null,
+        accessTokenEndDate: null,
       },
     });
-  } catch (err) {
-    console.log(err);
   }
 };

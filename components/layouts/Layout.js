@@ -17,8 +17,8 @@ const Layout = ({ title, children }) => {
     <>
       <Head>
         <title>NexTube {title && `- ${title}`}</title>
-        <meta name="description" content="The Next Youtube" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name="description" content="A video streaming app where you can share your videos" />
+        <link rel="icon" href="/logo.png" />
       </Head>
       <div className="bg-gray-100 h-min-screen">
         <Topbar setSidebarClosed={setSidebarClosed} />

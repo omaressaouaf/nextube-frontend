@@ -1,6 +1,7 @@
 import { Provider } from "react-redux";
 import store from "../../store";
 
+
 const withStore = WrappedComponent => {
   return props => (
     <Provider store={store}>
@@ -8,5 +9,6 @@ const withStore = WrappedComponent => {
     </Provider>
   );
 };
+
 
 export default withStore;

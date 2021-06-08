@@ -1,6 +1,6 @@
 // auth action types
 export const authActionTypes = {
-  SET_AUTH_USER: "SET_AUTH_USER",
+  SET_AUTH: "SET_AUTH",
 };
 
 // ui action types
