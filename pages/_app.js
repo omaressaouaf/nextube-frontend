@@ -1,7 +1,7 @@
-import "../styles/globals.css";
 import "nprogress/nprogress.css";
-import "../bootstrap";
 import "@fortawesome/fontawesome-free/css/all.css";
+import "../styles/globals.css";
+import "../global/bootstrap";
 import Head from "next/head";
 import withStore from "../components/HOC/withStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,11 +13,16 @@ function MyApp({ Component, pageProps }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(refreshToken());
+    if (typeof window !== "undefined") dispatch(refreshToken());
   }, []);
 
   return (
     <>
+      <Head>
+        <title>NexTube</title>
+        <meta name="description" content="A video streaming app where you can share your videos" />
+        <link rel="icon" href="/logo.png" />
+      </Head>
       {authPending && <div id="preloader"></div>}
       <Component {...pageProps} />
     </>

@@ -14,8 +14,7 @@ import Alert from "../components/base/Alert";
 const signup = () => {
   // redux
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.uiReducer.loading.signup);
-  const serverError = useSelector(state => state.uiReducer.serverErrors.signup);
+  const [loading, serverError] = useSelector(state => [state.uiReducer.loadings.signup, state.uiReducer.serverErrors.signup]);
 
   // form validation
   const { registerInput, wrapHandleSubmit, errors } = useValidation({

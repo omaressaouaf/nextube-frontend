@@ -1,6 +1,7 @@
 import axios from "axios";
-import { clearLoading, setLoading, setServerErrors } from "./uiActions";
+import { clearLoading, handleServerError, setLoading } from "./uiActions";
 import { authActionTypes } from "./types";
+import { fireToast } from "../../global/helpers";
 
 export const refreshToken = () => dispatch => {
   return new Promise(async (resolve, reject) => {
@@ -31,20 +32,22 @@ export const refreshToken = () => dispatch => {
 };
 
 export const register = (channelName, email, password, router) => async dispatch => {
+  const component = "signup";
   try {
-    dispatch(setLoading("signup"));
+    dispatch(setLoading(component));
     await axios.post("/auth/register", { channelName, email, password });
     router.push("/signin");
   } catch (err) {
-    dispatch(setServerErrors("signup", err.response.data.message));
+    dispatch(handleServerError(err, component));
   } finally {
-    dispatch(clearLoading("signup"));
+    dispatch(clearLoading(component));
   }
 };
 
 export const login = (email, password) => async dispatch => {
+  const component = "signin";
   try {
-    dispatch(setLoading("signin"));
+    dispatch(setLoading(component));
     const { data } = await axios.post("/auth/login", { email, password });
     dispatch({
       type: authActionTypes.SET_AUTH,
@@ -56,16 +59,15 @@ export const login = (email, password) => async dispatch => {
     });
     axios.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
   } catch (err) {
-    dispatch(setServerErrors("signin", err.response.data.message));
+    dispatch(handleServerError(err, component));
   } finally {
-    dispatch(clearLoading("signin"));
+    dispatch(clearLoading(component));
   }
 };
 
 export const logout = () => async dispatch => {
   try {
     await axios.put("/auth/logout");
-  } finally {
     dispatch({
       type: authActionTypes.SET_AUTH,
       payload: {
@@ -74,5 +76,7 @@ export const logout = () => async dispatch => {
         accessTokenEndDate: null,
       },
     });
+  } catch (err) {
+    fireToast("error", "Could not log you out ! try again");
   }
 };

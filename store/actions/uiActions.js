@@ -1,3 +1,4 @@
+import { fireToast } from "../../global/helpers";
 import { uiActionTypes } from "./types";
 
 export const setLoading = component => {
@@ -12,9 +13,9 @@ export const clearLoading = component => {
     payload: component,
   };
 };
-export const setServerErrors = (component, error) => {
+export const setServerError = (component, error) => {
   return {
-    type: uiActionTypes.SET_SERVER_ERRORS,
+    type: uiActionTypes.SET_SERVER_ERROR,
     payload: {
       component,
       error,
@@ -23,10 +24,20 @@ export const setServerErrors = (component, error) => {
 };
 export const clearServerErrors = component => {
   return {
-    type: uiActionTypes.CLEAR_SERVER_ERRORS,
+    type: uiActionTypes.CLEAR_SERVER_ERROR,
     payload: {
       component,
     },
   };
+};
+
+export const handleServerError = (err, component) => dispatch => {
+  const status = err.response.status;
+  const expectedStatuses = [400, 401, 422, 409];
+  if (expectedStatuses.includes(status)) {
+    dispatch(setServerError(component, err.response.data.message));
+  } else {
+    fireToast("error", "Unknown error. try again");
+  }
 };
 

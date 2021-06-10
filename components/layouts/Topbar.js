@@ -40,9 +40,11 @@ const Topbar = ({ setSidebarClosed }) => {
             </button>
           </form>
           <div className="flex items-center ml-auto">
-            <a href="">
-              <i className="fa fa-upload text-gray-500 mr-8"></i>
-            </a>
+            <Link href="/videos/upload">
+              <a>
+                <i className="fa fa-upload text-gray-500 mr-8"></i>
+              </a>
+            </Link>
             {authUser ? (
               <div className="relative">
                 <div>
@@ -53,15 +55,15 @@ const Topbar = ({ setSidebarClosed }) => {
                 {accountDropdownOpen && (
                   <ClickAwayListener onClickAway={() => setAccountDropdownOpen(false)}>
                     <div className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex="-1">
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">
-                        Your Profile
+                      <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-0">
+                        Your Channel
                       </a>
 
-                      <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">
+                      <a href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-1">
                         Settings
                       </a>
                       <hr className="my-2" />
-                      <a onClick={() => dispatch(logout())} href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">
+                      <a onClick={() => dispatch(logout())} href="#" className="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabIndex="-1" id="user-menu-item-2">
                         Sign out
                       </a>
                     </div>

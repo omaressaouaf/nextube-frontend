@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Avatar from "../components/base/Avatar";
 import Layout from "../components/layouts/Layout";
-import withAuth from "../components/HOC/withAuth";
-import axios from "axios";
 
 const Home = () => {
   const [videos, setVideos] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 34, 6546, 4343, 55, 23, 66, 6234, 6562, 54, 23435343, 767, 24]);
-  useEffect(() => {
-    axios
-      .get("/")
-      .then(res => {
-        console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+
   return (
     <Layout>
       {/* content Start */}
@@ -61,4 +50,4 @@ const Home = () => {
   );
 };
 
-export default withAuth(Home);
+export default Home;

@@ -1,37 +1,38 @@
 import { uiActionTypes } from "../actions/types";
 
 const initialState = {
-  loading: {},
+  loadings: {},
   serverErrors: {},
 };
 export default function uiReducer(state = initialState, { type, payload }) {
-  var modifiedLoading = null;
+  var modifiedLoadings = null;
   var modifiedServerErrors = null;
+
 
   switch (type) {
     case uiActionTypes.SET_LOADING:
-      modifiedLoading = { ...state.loading };
-      modifiedLoading[payload] = true;
+      modifiedLoadings = { ...state.loadings };
+      modifiedLoadings[payload] = true;
       return {
         ...state,
-        loading: modifiedLoading,
+        loadings: modifiedLoadings,
       };
     case uiActionTypes.CLEAR_LOADING:
-      modifiedLoading = { ...state.loading };
-      modifiedLoading[payload] = false;
+      modifiedLoadings = { ...state.loadings };
+      modifiedLoadings[payload] = false;
       return {
         ...state,
-        loading: modifiedLoading,
+        loadings: modifiedLoadings,
       };
-    case uiActionTypes.SET_SERVER_ERRORS:
-      modifiedServerErrors = { ...state.errors };
+    case uiActionTypes.SET_SERVER_ERROR:
+      modifiedServerErrors = { ...state.serverErrors };
       modifiedServerErrors[payload.component] = payload.error;
       return {
         ...state,
         serverErrors: modifiedServerErrors,
       };
-    case uiActionTypes.CLEAR_SERVER_ERRORS:
-      modifiedServerErrors = { ...state.errors };
+    case uiActionTypes.CLEAR_SERVER_ERROR:
+      modifiedServerErrors = { ...state.serverErrors };
       if (payload.component) {
         delete modifiedServerErrors[payload.component];
       } else {

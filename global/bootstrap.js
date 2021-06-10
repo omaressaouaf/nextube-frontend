@@ -1,9 +1,9 @@
 import axios from "axios";
 import Router from "next/router";
 import nProgress from "nprogress";
-import store from "./store";
-import { refreshToken } from "./store/actions/authActions";
-import { clearServerErrors } from "./store/actions/uiActions";
+import store from "../store";
+import { refreshToken } from "../store/actions/authActions";
+import { clearServerErrors } from "../store/actions/uiActions";
 
 Router.events.on("routeChangeStart", nProgress.start);
 Router.events.on("routeChangeComplete", () => {
