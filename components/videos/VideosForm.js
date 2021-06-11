@@ -21,24 +21,24 @@ const UploadForm = () => {
   });
 
   // video file
-  const [videoFile, setVideoFile] = useState(null);
-  const videoFileIsValid = () => {
-    return videoFile && videoFile.size <= 1024 * 1024 * 11 && videoFile.type == "video/mp4";
+  const [file, setFile] = useState(null);
+  const fileIsValid = () => {
+    return file && file.size <= 1024 * 1024 * 11 && file.type == "video/mp4";
   };
   const handleFileDrop = files => {
-    setVideoFile(files[0]);
+    setFile(files[0]);
   };
 
   const handleSubmit = ({ title, tags, description }) => {
-    if (!videoFileIsValid()) return fireToast("error", "Choose a valid file");
+    if (!fileIsValid()) return fireToast("error", "Choose a valid file");
     const formData = new FormData();
     formData.append("title", title);
     formData.append("tags", tags);
     formData.append("description", description);
-    formData.append("videoFile", videoFile);
+    formData.append("file", file);
     dispatch(uploadVideo(formData));
-    reset();
-    setVideoFile(null);
+    // reset();
+    // setFile(null);
   };
 
   return (
@@ -70,7 +70,7 @@ const UploadForm = () => {
                             </div>
                             <p className="text-xs text-gray-500">MP4 up to 10MB</p>
                           </div>
-                          {videoFile && <p className="mt-3 text-sm text-gray-700 text-center">{videoFile.name}</p>}
+                          {file && <p className="mt-3 text-sm text-gray-700 text-center">{file.name}</p>}
                         </div>
                       </div>
                     </div>

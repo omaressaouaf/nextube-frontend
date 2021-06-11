@@ -1,5 +1,11 @@
 import swal from "sweetalert2";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
+export const formatDateAgo = date => {
+  return dayjs(date).fromNow();
+};
 
 export const fireConfirm = callbackfn => {
   swal
@@ -33,6 +39,13 @@ const toast = swal.mixin({
   timer: 3000,
   timerProgressBar: true,
 });
+
 export const fireToast = (icon, title) => {
   toast.fire({ icon, title });
+};
+
+export const serializeServerError = err => {
+  return {
+    response: { status: err.response.status, data: { message: err.response.data.message } },
+  };
 };

@@ -24,6 +24,11 @@ export default function videosReducer(state = initialState, { type, payload }) {
         ...state,
         uploadProgresses: modifiedUploadProgresses,
       };
+    case videosActionTypes.SET_VIDEOS:
+      return {
+        ...state,
+        videos: payload,
+      };
     default:
       return state;
   }

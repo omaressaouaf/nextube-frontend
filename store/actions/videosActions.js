@@ -1,7 +1,7 @@
 import axios from "axios";
 import { fireToast } from "../../global/helpers";
 import { videosActionTypes } from "./types";
-import { handleServerError } from "./uiActions";
+import { clearLoading, handleServerError, setLoading } from "./uiActions";
 
 const setUploadProgress = ({ identifier, title, percentage, source }) => {
   return {
@@ -29,9 +29,10 @@ export const cancelUploadVideo = source => async dispatch => {
 };
 
 export const uploadVideo = formData => async dispatch => {
+  const component = "VideosForm";
+  const uploadProgressIdentifier = Date.now();
+
   try {
-    var component = "UploadForm";
-    var uploadProgressIdentifier = Date.now();
     const source = axios.CancelToken.source();
 
     const config = {
@@ -61,4 +62,11 @@ export const uploadVideo = formData => async dispatch => {
   } finally {
     setTimeout(() => dispatch(clearUploadProgress(uploadProgressIdentifier)), 2000);
   }
+};
+
+export const setVideos = videos => {
+  return {
+    type: videosActionTypes.SET_VIDEOS,
+    payload: videos,
+  };
 };

@@ -5,6 +5,8 @@ import store from "../store";
 import { refreshToken } from "../store/actions/authActions";
 import { clearServerErrors } from "../store/actions/uiActions";
 
+
+
 Router.events.on("routeChangeStart", nProgress.start);
 Router.events.on("routeChangeComplete", () => {
   store.dispatch(clearServerErrors());

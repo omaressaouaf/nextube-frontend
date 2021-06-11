@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["ytexpert.net"],
+    domains: ["ytexpert.net" , 'localhost'],
   },
 };
