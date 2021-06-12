@@ -29,7 +29,7 @@ export const cancelUploadVideo = source => async dispatch => {
 };
 
 export const uploadVideo = formData => async dispatch => {
-  const component = "VideosForm";
+  const component = "VideoForm";
   const uploadProgressIdentifier = Date.now();
 
   try {
@@ -62,6 +62,24 @@ export const uploadVideo = formData => async dispatch => {
   } finally {
     setTimeout(() => dispatch(clearUploadProgress(uploadProgressIdentifier)), 2000);
   }
+};
+
+export const fetchVideo = id => dispatch => {
+  return new Promise(async resolve => {
+    const component = "VideoSingle";
+    try {
+      const { data } = await axios.get("/videos/" + id);
+
+      dispatch({
+        type: videosActionTypes.SET_VIDEO,
+        payload: data.video,
+      });
+    } catch (err) {
+      dispatch(handleServerError(err, component));
+    } finally {
+      resolve();
+    }
+  });
 };
 
 export const setVideos = videos => {

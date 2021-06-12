@@ -15,5 +15,6 @@ export const uiActionTypes = {
 export const videosActionTypes = {
   SET_UPLOAD_PROGRESS: "SET_UPLOAD_PROGRESS",
   CLEAR_UPLOAD_PROGRESS: "CLEAR_UPLOAD_PROGRESS",
-  SET_VIDEOS : 'SET_VIDEOS'
+  SET_VIDEOS : 'SET_VIDEOS',
+  SET_VIDEO: "SET_VIDEO"
 };

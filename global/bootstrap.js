@@ -1,18 +1,20 @@
 import axios from "axios";
 import Router from "next/router";
-import nProgress from "nprogress";
+import NProgress from "nprogress";
 import store from "../store";
 import { refreshToken } from "../store/actions/authActions";
 import { clearServerErrors } from "../store/actions/uiActions";
 
 
+NProgress.configure({ trickleRate: 0.05, trickleSpeed: 20 });
 
-Router.events.on("routeChangeStart", nProgress.start);
+
+Router.events.on("routeChangeStart", NProgress.inc);
 Router.events.on("routeChangeComplete", () => {
   store.dispatch(clearServerErrors());
-  nProgress.done();
+  NProgress.done();
 });
-Router.events.on("routeChangeError", nProgress.done);
+Router.events.on("routeChangeError", NProgress.done);
 
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000";

@@ -1,7 +1,7 @@
 import Layout from "../../components/layouts/Layout";
 import withAuth from "../../components/HOC/withAuth";
 import UploadProgresses from "../../components/videos/UploadProgresses";
-import VideosForm from "../../components/videos/VideosForm";
+import VideoForm from "../../components/videos/VideoForm";
 
 const upload = () => {
   return (
@@ -16,7 +16,7 @@ const upload = () => {
             </div>
           </div>
           <div className="mt-5 md:mt-0 md:col-span-2">
-            <VideosForm />
+            <VideoForm />
           </div>
         </div>
       </div>

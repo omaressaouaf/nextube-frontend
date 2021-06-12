@@ -3,15 +3,16 @@ import * as yup from "yup";
 import useValidation from "../../hooks/useValidation";
 import TextField from "../base/TextField";
 import Button from "../base/Button";
+import Alert from '../base/Alert'
 import { uploadVideo } from "../../store/actions/videosActions";
 import { useSelector, useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import { fireToast } from "../../global/helpers";
 
-const UploadForm = () => {
+const VideoForm = () => {
   // redux
   const dispatch = useDispatch();
-  const serverError = useSelector(state => state.uiReducer.serverErrors.UploadForm);
+  const serverError = useSelector(state => state.uiReducer.serverErrors.VideoForm);
 
   // form validation
   const { registerInput, wrapHandleSubmit, errors, reset } = useValidation({
@@ -23,7 +24,8 @@ const UploadForm = () => {
   // video file
   const [file, setFile] = useState(null);
   const fileIsValid = () => {
-    return file && file.size <= 1024 * 1024 * 11 && file.type == "video/mp4";
+    // return file && file.size <= 1024 * 1024 * 11 && file.type == "video/mp4";
+    return file
   };
   const handleFileDrop = files => {
     setFile(files[0]);
@@ -114,4 +116,4 @@ const UploadForm = () => {
   );
 };
 
-export default UploadForm;
+export default VideoForm;

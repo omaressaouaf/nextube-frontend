@@ -2,6 +2,7 @@ import { videosActionTypes } from "../actions/types";
 
 const initialState = {
   videos: [],
+  video: { user: {} },
   uploadProgresses: {},
 };
 
@@ -28,6 +29,11 @@ export default function videosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         videos: payload,
+      };
+    case videosActionTypes.SET_VIDEO:
+      return {
+        ...state,
+        video: payload,
       };
     default:
       return state;
