@@ -19,17 +19,17 @@ const VideoItem = ({ video }) => {
         <div>
           <div className="mb-2 w-full">
             <Link href={`/videos/${video.id}`}>
-              <a className="text-black font-semibold w-full">{video.title}</a>
+              <a className="text-black dark:text-white  font-semibold w-full">{video.title}</a>
             </Link>
           </div>
           <div className="text-sm">
             <Link href={`/videos/${video.id}`}>
-              <a className="text-gray-600 hover:text-black">
+              <a className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white ">
                 {video.user.channelName} <i className="fa fa-check-circle transition "></i>
               </a>
             </Link>
           </div>
-          <div className="text-sm text-gray-600">245k views &middot; {formatDateAgo(video.createdAt)}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">245k views &middot; {formatDateAgo(video.createdAt)}</div>
         </div>
       </div>
     </div>

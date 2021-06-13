@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const TextField = React.forwardRef(({ className, error, helperText, helperTextColor, textarea, ...otherProps }, ref) => {
-  const classes = `w-full px-3 py-2 shadow-sm border border-gray-300 placeholder-gray-500 text-sm text-gray-900 rounded-md focus:outline-none focus:ring-1 ${error ? "focus:ring-red-500" : "focus:ring-indigo-500  "} ${className}`;
+  const classes = `w-full px-3 py-2 shadow-sm border border-gray-300 placeholder-gray-500 text-sm text-gray-900 dark:bg-lightBlack dark:border-darkGray dark:text-gray-200 rounded-md focus:outline-none focus:ring-1 ${error ? "focus:ring-red-500" : "focus:ring-indigo-500  "} ${className}`;
 
   return (
     <>

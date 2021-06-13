@@ -14,8 +14,8 @@ export const fireConfirm = callbackfn => {
       text: "Are you sure",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#F13527",
-      cancelButtonColor: "#55AE59",
+      confirmButtonColor: "#3E7DE6",
+      cancelButtonColor: "#FF0000",
       confirmButtonText: "OK",
       cancelButtonText: "Cancel",
     })
@@ -30,6 +30,7 @@ export const fireAlert = (icon, title, text) => {
     icon,
     title,
     text,
+    confirmButtonColor: "#3E7DE6",
   });
 };
 const toast = swal.mixin({
@@ -48,4 +49,21 @@ export const serializeServerError = err => {
   return {
     response: { status: err.response.status, data: { message: err.response.data.message } },
   };
+};
+
+export const saveToLocalStorage = (key, val) => {
+  try {
+    localStorage.setItem(key, val);
+  } catch (err) {
+    fireAlert("info", "Please enable local storage");
+  }
+};
+
+export const getFromLocalStorage = key => {
+  try {
+    const val = localStorage.getItem(key);
+    return val === null ? false : JSON.parse(val);
+  } catch (err) {
+    return false;
+  }
 };

@@ -34,23 +34,23 @@ const VideoSingle = () => {
         ) : (
           <>
             <h2 className="mb-3 font-semibold">{video.title}</h2>
-            <div className="mb-5 lg:mb-0 text-sm text-gray-600">245k views &middot; {formatDateAgo(video.createdAt)}</div>
-            <div className="flex items-center justify-end gap-4">
-              <button className="text-blue-500 focus:outline-none  text-sm">
+            <div className="mb-5 lg:mb-0 text-sm text-gray-600 dark:text-gray-400">245k views &middot; {formatDateAgo(video.createdAt)}</div>
+            <div className="flex items-center justify-end gap-4 text-gray-500 dark:text-gray-400 uppercase text-sm">
+              <button className="text-blue-500 focus:outline-none">
                 <i className="fa fa-thumbs-up fa-lg"></i> 123K
               </button>
-              <button className="text-gray-500 focus:outline-none  text-sm">
+              <button className="focus:outline-none">
                 <i className="fa fa-thumbs-down fa-lg"></i> 123K
               </button>
-              <button className="text-gray-500 focus:outline-none uppercase text-sm">
+              <button className="focus:outline-none">
                 <i className="fa fa-share fa-lg"></i> Share
               </button>
-              <button className="text-gray-500 focus:outline-none uppercase text-sm">
+              <button className="focus:outline-none">
                 <i className="fa fa-clock fa-lg"></i> Later
               </button>
             </div>
 
-            <hr className="my-5" />
+            <hr className="my-5 dark:border-darkGray" />
             <div className="video-description flex items-start flex-wrap md:flex-nowrap  justify-between">
               <div className="flex items-start order-2 md:order-1">
                 <Avatar className=" w-12 mr-3 mt-1" />
@@ -59,9 +59,9 @@ const VideoSingle = () => {
                     {video.user.channelName}
                     <i className="fa fa-check-circle text-blue-500 ml-2"></i>
                   </a>
-                  <p className="text-xs font-medium text-gray-600">8.49M subscribers</p>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">8.49M subscribers</p>
                   <div className="mt-5">
-                    <ShowMore lines={2} more="Show more" less="Show less" anchorClass="flex mt-4 uppercase text-xs text-gray-700 font-semibold">
+                    <ShowMore lines={2} more="Show more" less="Show less" anchorClass="flex mt-4 uppercase text-xs text-gray-700 dark:text-gray-300 font-semibold">
                       {video.description}
                     </ShowMore>
                   </div>

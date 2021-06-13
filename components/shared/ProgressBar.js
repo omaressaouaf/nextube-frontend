@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const ProgressBar = ({ percentage }) => {
   return (
     <div className="shadow w-full bg-grey-light my-5">
@@ -7,5 +9,9 @@ const ProgressBar = ({ percentage }) => {
     </div>
   );
 };
+
+ProgressBar.prototype = {
+  percentage : PropTypes.object.isRequired
+}
 
 export default ProgressBar;

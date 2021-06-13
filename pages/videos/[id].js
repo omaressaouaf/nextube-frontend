@@ -16,14 +16,14 @@ const Video = () => {
         <div className="video-all col-span-12 lg:col-span-8">
           <VideoSingle />
 
-          <hr className="my-5" />
+          <hr className="my-5 dark:border-darkGray" />
 
           <div className="comments-section w-full">
-            <p className="text-gray-800">10 Comments</p>
+            <p className="text-gray-800 dark:text-gray-200">10 Comments</p>
             <div className="flex items-start mt-6 w-full">
               <Avatar className="w-10 mr-3 mt-1" />
               <form className="flex-grow ">
-                <textarea className="transition w-full bg-transparent resize-none	border-b focus:outline-none focus:border-blue-400   placeholder-opacity-5" placeholder="Add a public comment" rows="2"></textarea>
+                <textarea className="transition w-full bg-transparent resize-none	border-b dark:border-darkGray focus:outline-none focus:border-blue-400 dark:focus:border-blue-400 placeholder-opacity-5" placeholder="Add a public comment" rows="2"></textarea>
               </form>
             </div>
             <div className="flex items-start my-2">
@@ -37,11 +37,11 @@ const Video = () => {
                   <Avatar className="w-10 mr-3 mt-1" />
                   <div className="flex-grow text-sm">
                     <p className="font-semibold mb-1">
-                      John does <span className="text-gray-600 text-xs">3 hours ago</span>
+                      John does <span className="text-gray-600 dark:text-gray-400 text-xs">3 hours ago</span>
                     </p>
                     <p>I got request for you. Could you show us extension for vs code that would improve our coding experience. Thank you.uest for you. Could you show us extension for vs code that would improve our coding experience. Thank you.</p>
                     <div className="flex items-center mt-3 gap-4 text-xs">
-                      <button className="text-gray-600 font-semibold focus:outline-none uppercase">
+                      <button className="text-gray-600 dark:text-gray-400 font-semibold focus:outline-none uppercase">
                         <i className="fa fa-reply"></i>
                       </button>
                       <button className="text-blue-500 font-semibold focus:outline-none uppercase ">
@@ -70,17 +70,17 @@ const Video = () => {
                 <div className="ml-2">
                   <Link href={`/videos/${video}`}>
                     <a className="flex mb-2">
-                      <div className="mb-2 w-full text-black font-semibold">How to make an an awesome thumbnail</div>
+                      <div className="mb-2 w-full text-black dark:text-gray-200 font-semibold">How to make an an awesome thumbnail</div>
                     </a>
                   </Link>
                   <div className="text-sm">
                     <Link href="#">
-                      <a className="text-gray-600 hover:text-black">
+                      <a className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:gray-200">
                         TheRussianGenuis <i className="fa fa-check-circle transition text-blue-500"></i>
                       </a>
                     </Link>
                   </div>
-                  <div className="text-sm text-gray-600">245k views &middot; 3 days ago</div>
+                  <div className="text-sm dark:text-gray-400">245k views &middot; 3 days ago</div>
                 </div>
               </div>
             );

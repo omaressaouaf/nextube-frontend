@@ -2,9 +2,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Avatar from "../base/Avatar";
-import PropTypes from "prop-types";
+import { useTheme } from "../../context/ThemeContext";
 
-const Sidebar = ({ sidebarClosed }) => {
+const Sidebar = () => {
   const [menuItems] = useState({
     home: [
       {
@@ -67,23 +67,25 @@ const Sidebar = ({ sidebarClosed }) => {
   });
   const router = useRouter();
 
+  const { sidebarOpen } = useTheme();
+
   return (
     <>
       {/* sidebar Start */}
       <div
-        className={`sidebar pb-6 bg-white shadow-lg h-screen top-16 overflow-hidden hover:overflow-auto has-cool-scrollbar transition-all duration-75 z-40 ${sidebarClosed && "-ml-80"}
+        className={`sidebar pb-6 bg-white dark:bg-lighterBlack  shadow-lg h-screen top-16 overflow-hidden hover:overflow-auto has-cool-scrollbar transition-all duration-75 z-40 ${!sidebarOpen && "-ml-80"}
       ${router.pathname == "/videos/[id]" ? "fixed w-66" : "fixed w-66 lg:sticky lg:w-80"}`}
       >
         {Object.keys(menuItems).map(key => {
           return (
-            <div className="mb-6" key={key}>
+            <div className="mb-6 text-black dark:text-gray-200" key={key}>
               {key != "home" && <div className="uppercase px-6  text-sm mb-4">{key}</div>}
               {menuItems[key].map(item => {
                 return (
                   <Link href={item.pathname} key={item.title}>
-                    <a className={`flex items-center py-3 px-6 mb-2 text-black transition ${router.pathname == item.pathname ? "bg-gray-200" : "hover:bg-gray-100"}`}>
-                      {item.image ? <Avatar className="w-7 mr-6" /> : <i className={`fa-lg fa-fw  mr-6 ${item.icon} ${router.pathname == item.pathname ? "text-red-600" : "text-gray-600"}`}></i>}
-                      <span className="font-semibold  text-sm">{item.title}</span>
+                    <a className={`flex items-center py-3 px-6 mb-2  transition ${router.pathname == item.pathname ? "bg-gray-200 dark:bg-darkGray" : "hover:bg-gray-100 dark:hover:bg-darkGray"}`}>
+                      {item.image ? <Avatar className="w-7 mr-6" /> : <i className={`fa-lg fa-fw  mr-6 ${item.icon} ${router.pathname == item.pathname ? "text-red-600 dark:text-gray-200" : "text-gray-600"}`}></i>}
+                      <span className="font-semibold  text-sm ">{item.title}</span>
                     </a>
                   </Link>
                 );
@@ -91,15 +93,11 @@ const Sidebar = ({ sidebarClosed }) => {
             </div>
           );
         })}
-        <div className="px-6 text-sm text-gray-600er">&copy; 2020 NexTube, LLC</div>
+        <div className="px-6 text-sm text-gray-600 dark:text-gray-200">&copy; 2020 NexTube, LLC</div>
       </div>
       {/* sidebar End */}
     </>
   );
-};
-
-Sidebar.prototype = {
-  sidebarClosed: PropTypes.bool.isRequired,
 };
 
 export default Sidebar;

@@ -3,11 +3,10 @@ import axios from "axios";
 import { serializeServerError } from "../global/helpers";
 import VideoItem from "../components/videos/VideoItem";
 import { useEffect } from "react";
-import { useDispatch  } from "react-redux";
+import { useDispatch } from "react-redux";
 import { handleServerError } from "../store/actions/uiActions";
 
 const Home = ({ videos, serverError }) => {
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +19,7 @@ const Home = ({ videos, serverError }) => {
     <Layout>
       <div>
         <p className="font-semibold mb-6">Recommended videos</p>
-        <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mb-6">
           {videos.map(video => {
             return <VideoItem video={video} key={video.id} />;
           })}
