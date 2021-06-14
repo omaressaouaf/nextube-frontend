@@ -10,7 +10,7 @@ import ThemeSwitcher from "../shared/ThemeSwitcher";
 const Topbar = () => {
   // ui
   const [accountDropdownOpen, setAccountDropdownOpen] = useState(false);
-  const { setSidebarOpen } = useTheme();
+  const { toggleSidebarOpen } = useTheme();
 
   // redux
   const authUser = useSelector(state => state.authReducer.authUser);
@@ -21,7 +21,7 @@ const Topbar = () => {
       <div className="top-bar bg-white dark:bg-lighterBlack shadow px-8 py-3 grid grid-cols-12 z-50 sticky top-0 text-gray-500 dark:text-white">
         <div className="col-span-2 flex items-center ">
           <div className="mr-6">
-            <button className="focus:outline-none" onClick={() => setSidebarOpen(prevVal => !prevVal)}>
+            <button className="focus:outline-none" onClick={toggleSidebarOpen}>
               <i className="fa fa-bars  fa-lg"></i>
             </button>
           </div>

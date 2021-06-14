@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/base/Button";
 import Avatar from "../../components/base/Avatar";
 import Layout from "../../components/layouts/Layout";
 import VideoSingle from "../../components/videos/VideoSingle";
-import Link from "next/link";
-import Image from "next/image";
+import SuggestionList from "../../components/videos/SuggestionList";
+import { useRouter } from "next/router";
 
 const Video = () => {
-  const [videos] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 34, 6546, 4343, 55, 23, 66, 6234, 6562, 54, 23435343, 767, 24]);
   const [comments] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 34, 6546, 4343, 55, 23, 66, 6234, 6562, 54, 23435343, 767, 24]);
+
+  const router = useRouter();
+  const { id } = router.query;
 
   return (
     <Layout>
       <div className="video-page grid grid-cols-12 gap-6 ">
         <div className="video-all col-span-12 lg:col-span-8">
-          <VideoSingle />
+          {router.isReady && <VideoSingle videoId={id} />}
 
           <hr className="my-5 dark:border-darkGray" />
 
@@ -57,35 +59,7 @@ const Video = () => {
             })}
           </div>
         </div>
-
-        <div className="recommendations col-span-12 lg:col-span-4">
-          {videos.map(video => {
-            return (
-              <div className="flex mb-2" key={video}>
-                <Link href={`/videos/${video}`}>
-                  <a className="flex mb-2">
-                    <Image width={180} height={90} src="https://ytexpert.net/wp-content/uploads/2019/11/How-To-Make-An-Eye-Catching-Thumbnail-For-More-Clicks-862x485.jpg" className="mb-1 hover:opacity-75 transition-opacity" alt="" />
-                  </a>
-                </Link>
-                <div className="ml-2">
-                  <Link href={`/videos/${video}`}>
-                    <a className="flex mb-2">
-                      <div className="mb-2 w-full text-black dark:text-gray-200 font-semibold">How to make an an awesome thumbnail</div>
-                    </a>
-                  </Link>
-                  <div className="text-sm">
-                    <Link href="#">
-                      <a className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:gray-200">
-                        TheRussianGenuis <i className="fa fa-check-circle transition text-blue-500"></i>
-                      </a>
-                    </Link>
-                  </div>
-                  <div className="text-sm dark:text-gray-400">245k views &middot; 3 days ago</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <div className="suggestions col-span-12 lg:col-span-4">{router.isReady && <SuggestionList videoId={id} />}</div>
       </div>
     </Layout>
   );

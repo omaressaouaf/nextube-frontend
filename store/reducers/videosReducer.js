@@ -1,9 +1,10 @@
 import { videosActionTypes } from "../actions/types";
 
 const initialState = {
+  uploadProgresses: {},
   videos: [],
   video: { user: {} },
-  uploadProgresses: {},
+  suggestions: [],
 };
 
 export default function videosReducer(state = initialState, { type, payload }) {
@@ -34,6 +35,11 @@ export default function videosReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         video: payload,
+      };
+    case videosActionTypes.SET_SUGGESTIONS:
+      return {
+        ...state,
+        suggestions: payload,
       };
     default:
       return state;

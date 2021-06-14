@@ -28,6 +28,13 @@ export const cancelUploadVideo = source => async dispatch => {
   source.cancel("You have canceled the upload");
 };
 
+export const setVideos = videos => {
+  return {
+    type: videosActionTypes.SET_VIDEOS,
+    payload: videos,
+  };
+};
+
 export const uploadVideo = formData => async dispatch => {
   const component = "VideoForm";
   const uploadProgressIdentifier = Date.now();
@@ -82,9 +89,20 @@ export const fetchVideo = id => dispatch => {
   });
 };
 
-export const setVideos = videos => {
-  return {
-    type: videosActionTypes.SET_VIDEOS,
-    payload: videos,
-  };
+export const fetchSuggestions = videoId => async dispatch => {
+  const component = "SuggestionList";
+  try {
+    dispatch(setLoading(component));
+
+    const { data } = await axios.get(`/videos/${videoId}/suggestions`);
+
+    dispatch({
+      type: videosActionTypes.SET_SUGGESTIONS,
+      payload: data.suggestions,
+    });
+  } catch (err) {
+    dispatch(handleServerError(err, component));
+  } finally {
+    dispatch(clearLoading(component));
+  }
 };

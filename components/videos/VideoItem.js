@@ -29,7 +29,7 @@ const VideoItem = ({ video }) => {
               </a>
             </Link>
           </div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">245k views &middot; {formatDateAgo(video.createdAt)}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">{video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}</div>
         </div>
       </div>
     </div>

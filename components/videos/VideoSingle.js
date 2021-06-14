@@ -4,24 +4,22 @@ import { formatDateAgo } from "../../global/helpers";
 import { fetchVideo } from "../../store/actions/videosActions";
 import Avatar from "../base/Avatar";
 import Button from "../base/Button";
-import { useRouter } from "next/router";
 import VideoSingleSkeleton from "./VideoSingleSkeleton";
 import ShowMore from "react-show-more";
+import PropTypes from "prop-types";
+import { useRouter } from "next/router";
 
-const VideoSingle = () => {
+const VideoSingle = ({ videoId }) => {
   // redux
   const dispatch = useDispatch();
   const video = useSelector(state => state.videosReducer.video);
 
-  const router = useRouter();
-  const { id } = router.query;
-
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
   useEffect(() => {
-    if (router.isReady) {
-      dispatch(fetchVideo(id)).then(() => setLoading(false));
-    }
-  }, [id]);
+    dispatch(fetchVideo(videoId)).then(() => setLoading(false));
+  }, []);
 
   return (
     <div className="video-single mt-2">
@@ -34,7 +32,9 @@ const VideoSingle = () => {
         ) : (
           <>
             <h2 className="mb-3 font-semibold">{video.title}</h2>
-            <div className="mb-5 lg:mb-0 text-sm text-gray-600 dark:text-gray-400">245k views &middot; {formatDateAgo(video.createdAt)}</div>
+            <div className="mb-5 lg:mb-0 text-sm text-gray-600 dark:text-gray-400">
+              {video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}
+            </div>
             <div className="flex items-center justify-end gap-4 text-gray-500 dark:text-gray-400 uppercase text-sm">
               <button className="text-blue-500 focus:outline-none">
                 <i className="fa fa-thumbs-up fa-lg"></i> 123K
@@ -76,6 +76,10 @@ const VideoSingle = () => {
       </div>
     </div>
   );
+};
+
+VideoSingle.prototype = {
+  videoId: PropTypes.number.isRequired,
 };
 
 export default VideoSingle;
