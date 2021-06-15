@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 const VideoSingleSkeleton = () => {
   return (
     <>
-      <div className="mb-1">
+      <div className="mb-1 w-auto overflow-hidden">
         <Skeleton height={10} width={400} />
         <br />
         <Skeleton height={6} width={200} />
@@ -17,7 +17,7 @@ const VideoSingleSkeleton = () => {
 
       <hr className="my-5" />
       <div className="video-description flex items-start flex-wrap md:flex-nowrap  justify-between">
-        <div className="flex items-start order-2 md:order-1">
+        <div className="flex items-start order-2 md:order-1 w-full">
           <Skeleton circle={true} height={50} width={50} />
 
           <div className="text-sm mt-3 ml-2">

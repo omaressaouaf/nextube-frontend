@@ -3,6 +3,8 @@ import { fireToast } from "../../global/helpers";
 import { videosActionTypes } from "./types";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
 
+
+
 const setUploadProgress = ({ identifier, title, percentage, source }) => {
   return {
     type: videosActionTypes.SET_UPLOAD_PROGRESS,
@@ -75,15 +77,19 @@ export const fetchVideo = id => dispatch => {
   return new Promise(async resolve => {
     const component = "VideoSingle";
     try {
-      const { data } = await axios.get("/videos/" + id);
+      dispatch(setLoading(component));
+      const {
+        data: { video },
+      } = await axios.get("/videos/" + id);
 
       dispatch({
         type: videosActionTypes.SET_VIDEO,
-        payload: data.video,
+        payload: video,
       });
     } catch (err) {
       dispatch(handleServerError(err, component));
     } finally {
+      dispatch(clearLoading(component));
       resolve();
     }
   });
@@ -104,5 +110,38 @@ export const fetchSuggestions = videoId => async dispatch => {
     dispatch(handleServerError(err, component));
   } finally {
     dispatch(clearLoading(component));
+  }
+};
+
+export const toggleLike = videoId => async (dispatch, getState) => {
+  try {
+    const authUser = getState().authReducer.authUser;
+    dispatch({
+      type: videosActionTypes.TOGGLE_FEELING,
+      payload: {
+        authUser,
+        feelings: "likes",
+      },
+    });
+    await axios.put(`/videos/${videoId}/togglelike`);
+  } catch (err) {
+    // README : don't handle errors here
+    console.log(err);
+  }
+};
+
+export const toggleDislike = videoId => async (dispatch, getState) => {
+  try {
+    const authUser = getState().authReducer.authUser;
+    dispatch({
+      type: videosActionTypes.TOGGLE_FEELING,
+      payload: {
+        authUser,
+        feelings: "dislikes",
+      },
+    });
+    await axios.put(`/videos/${videoId}/toggledislike`);
+  } catch (err) {
+    // README : don't handle errors here
   }
 };

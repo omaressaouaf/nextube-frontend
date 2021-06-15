@@ -11,7 +11,7 @@ const Button = ({ className, children, ...otherProps }) => {
   );
 };
 
-Button.prototype = {
+Button.propTypes = {
   className: PropTypes.string.isRequired,
   children: PropTypes.any,
 };

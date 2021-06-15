@@ -28,7 +28,7 @@ const Layout = ({ title, children }) => {
   );
 };
 
-Layout.prototype = {
+Layout.propTypes = {
   title: PropTypes.string,
   children: PropTypes.any,
 };

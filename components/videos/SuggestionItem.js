@@ -6,9 +6,9 @@ import PropTypes from "prop-types";
 const SuggestionItem = ({ video }) => {
   return (
     <div className="flex mb-2" key={video.id}>
-      <Link href={`/videos/${video.id}`}>
+      <Link  href={`/videos/${video.id}`} >
         <a className="flex mb-2">
-          <Image width={180} height={90} src={video.thumbnail} className="mb-1 hover:opacity-75 transition-opacity" alt="thumbnail" />
+          <Image width={180} height={90} layout='fixed' src={video.thumbnail} className="mb-1 hover:opacity-75 transition-opacity" alt="thumbnail" />
         </a>
       </Link>
       <div className="ml-2">
@@ -33,7 +33,7 @@ const SuggestionItem = ({ video }) => {
   );
 };
 
-SuggestionItem.prototype = {
+SuggestionItem.propTypes = {
   video: PropTypes.object.isRequired,
 };
 

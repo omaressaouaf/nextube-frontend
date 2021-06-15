@@ -13,7 +13,7 @@ const Alert = ({ className, icon, children }) => {
   );
 };
 
-Alert.prototype = {
+Alert.propTypes = {
   className: PropTypes.string,
   icon: PropTypes.string,
   children: PropTypes.any,

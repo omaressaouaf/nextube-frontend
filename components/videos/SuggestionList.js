@@ -12,7 +12,7 @@ const SuggestionList = ({ videoId }) => {
 
   useEffect(() => {
     dispatch(fetchSuggestions(videoId));
-  }, []);
+  }, [videoId]);
 
   if (loading) return <SuggestionListSkeleton />;
   return suggestions.map(video => {
@@ -20,8 +20,8 @@ const SuggestionList = ({ videoId }) => {
   });
 };
 
-SuggestionList.prototype = {
-  videoId: PropTypes.number.isRequired,
+SuggestionList.propTypes = {
+  videoId: PropTypes.string.isRequired,
 };
 
 export default SuggestionList;

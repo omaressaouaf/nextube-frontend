@@ -67,3 +67,10 @@ export const getFromLocalStorage = key => {
     return false;
   }
 };
+
+export const validateFeelingsVariable = feelings => {
+  if (feelings !== "likes" && feelings !== "dislikes") {
+    throw new Error("feelings proprty must be either likes or dislikes");
+  }
+};
+

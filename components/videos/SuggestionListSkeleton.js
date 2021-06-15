@@ -7,7 +7,7 @@ const SuggestionListSkeleton = () => {
   return [1, 2, 3, 4, 5, 6].map(skeleton => {
     return (
 
-        <div className="flex mb-2" key={skeleton}>
+        <div className="flex mb-2 w-auto overflow-hidden" key={skeleton}>
           <div className="flex mb-2">
             <Skeleton width={180} height={90} />
           </div>

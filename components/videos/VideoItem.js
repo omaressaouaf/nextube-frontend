@@ -36,7 +36,7 @@ const VideoItem = ({ video }) => {
   );
 };
 
-VideoItem.prototype = {
+VideoItem.propTypes = {
   video: PropTypes.object.isRequired,
 };
 

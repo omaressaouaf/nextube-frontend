@@ -7,24 +7,25 @@ import Button from "../base/Button";
 import VideoSingleSkeleton from "./VideoSingleSkeleton";
 import ShowMore from "react-show-more";
 import PropTypes from "prop-types";
-import { useRouter } from "next/router";
+import VideoSingleButtons from "./VideoSingleButtons";
 
 const VideoSingle = ({ videoId }) => {
   // redux
   const dispatch = useDispatch();
   const video = useSelector(state => state.videosReducer.video);
-
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
+    setLoading(true);
     dispatch(fetchVideo(videoId)).then(() => setLoading(false));
-  }, []);
+  }, [videoId]);
+
+
 
   return (
     <div className="video-single mt-2">
       <div className="video-details">
-        <video className="w-full mb-5" controls autoPlay>
+        <video key={video.id} className="w-full mb-5" controls autoPlay>
           {!loading && <source src={`http://localhost:5000/videos/stream/${video.filename}`} type="video/mp4" />}
         </video>
         {loading ? (
@@ -36,23 +37,12 @@ const VideoSingle = ({ videoId }) => {
               {video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}
             </div>
             <div className="flex items-center justify-end gap-4 text-gray-500 dark:text-gray-400 uppercase text-sm">
-              <button className="text-blue-500 focus:outline-none">
-                <i className="fa fa-thumbs-up fa-lg"></i> 123K
-              </button>
-              <button className="focus:outline-none">
-                <i className="fa fa-thumbs-down fa-lg"></i> 123K
-              </button>
-              <button className="focus:outline-none">
-                <i className="fa fa-share fa-lg"></i> Share
-              </button>
-              <button className="focus:outline-none">
-                <i className="fa fa-clock fa-lg"></i> Later
-              </button>
+              <VideoSingleButtons video={video} />
             </div>
 
             <hr className="my-5 dark:border-darkGray" />
             <div className="video-description flex items-start flex-wrap md:flex-nowrap  justify-between">
-              <div className="flex items-start order-2 md:order-1">
+              <div className="flex items-start order-2 md:order-1 w-full">
                 <Avatar className=" w-12 mr-3 mt-1" />
                 <div className="text-sm mt-1">
                   <a href="#" className="font-semibold text-sm">
@@ -78,8 +68,8 @@ const VideoSingle = ({ videoId }) => {
   );
 };
 
-VideoSingle.prototype = {
-  videoId: PropTypes.number.isRequired,
+VideoSingle.propTypes = {
+  videoId: PropTypes.string.isRequired,
 };
 
 export default VideoSingle;

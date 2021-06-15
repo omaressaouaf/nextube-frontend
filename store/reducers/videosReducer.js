@@ -1,3 +1,4 @@
+import { validateFeelingsVariable } from "../../global/helpers";
 import { videosActionTypes } from "../actions/types";
 
 const initialState = {
@@ -41,6 +42,28 @@ export default function videosReducer(state = initialState, { type, payload }) {
         ...state,
         suggestions: payload,
       };
+    case videosActionTypes.TOGGLE_FEELING:
+      let modifiedVideo = { ...state.video };
+
+      const { authUser, feelings } = payload;
+
+      validateFeelingsVariable(feelings);
+
+      const oppositeFeelings = feelings === "likes" ? "dislikes" : "likes";
+
+      if (modifiedVideo[feelings].includes(authUser.id)) {
+        modifiedVideo[feelings] = modifiedVideo[feelings].filter(userId => userId != authUser.id);
+      } else {
+        if (modifiedVideo[oppositeFeelings].includes(authUser.id)) {
+          modifiedVideo[oppositeFeelings] = modifiedVideo[oppositeFeelings].filter(userId => userId != authUser.id);
+        }
+        modifiedVideo[feelings].push(authUser.id);
+      }
+      return {
+        ...state,
+        video: modifiedVideo,
+      };
+
     default:
       return state;
   }

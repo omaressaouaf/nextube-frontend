@@ -13,7 +13,7 @@ const AuthCard = ({ title, children }) => {
     </div>
   );
 }
-AuthCard.prototype = {
+AuthCard.propTypes = {
  title : PropTypes.string.isRequired,
  children : PropTypes.any
 }

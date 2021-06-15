@@ -10,7 +10,7 @@ const ProgressBar = ({ percentage }) => {
   );
 };
 
-ProgressBar.prototype = {
+ProgressBar.propTypes = {
   percentage : PropTypes.object.isRequired
 }
 
