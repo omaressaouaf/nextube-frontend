@@ -24,7 +24,7 @@ export const addComment =
   ({ content, parentCommentId }) =>
   (dispatch, getState) => {
     return new Promise(async resolve => {
-      const component = "CommentForm";
+      const component = `CommentForm${parentCommentId}`;
       try {
         dispatch(setLoading(component));
 
@@ -74,7 +74,7 @@ export const updateComment =
   ({ content, commentId }) =>
   (dispatch, getState) => {
     return new Promise(async resolve => {
-      const component = "CommentForm";
+      const component = `CommentItem${commentId}`;
       try {
         dispatch(setLoading(component));
 

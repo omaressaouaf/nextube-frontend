@@ -10,7 +10,7 @@ const CommentForm = ({ formMode, setFormMode, comment, parentCommentId }) => {
   // redux
   const [authUser, loading] = useSelector(state => [
     state.authReducer.authUser,
-    state.uiReducer.loadings.CommentForm,
+    state.uiReducer.loadings[formMode === "edit" ? `CommentItem${comment.id}` : `CommentForm${parentCommentId}`],
   ]);
   const dispatch = useDispatch();
 
@@ -38,7 +38,11 @@ const CommentForm = ({ formMode, setFormMode, comment, parentCommentId }) => {
   };
   return (
     <>
-      <div className={`comments-form flex items-start mt-6 ${formMode ==="reply" ? 'max-w-xl ml-auto' : 'w-full'}`}>
+      <div
+        className={`comments-form flex items-start mt-6 ${
+          formMode === "reply" ? "max-w-4xl ml-auto" : "w-full"
+        }`}
+      >
         <Avatar className={`mr-3 mt-1 ${formMode === "reply" ? "w-8" : "w-10"}`} />
         <form className="w-full" onSubmit={handleSubmit}>
           <textarea
