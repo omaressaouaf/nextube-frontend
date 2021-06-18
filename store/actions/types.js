@@ -20,3 +20,12 @@ export const videosActionTypes = {
   SET_SUGGESTIONS: "SET_SUGGESTIONS",
   TOGGLE_FEELING: "TOGGLE_FEELING",
 };
+
+// comments action types
+export const commentsActionTypes = {
+  SET_COMMENTS: "SET_COMMENTS",
+  SET_REPLIES: "SET_REPLIES",
+  ADD_COMMENT : "ADD_COMMENT",
+  DELETE_COMMENT: "DELETE_COMMENT",
+  UPDATE_COMMENT: "UPDATE_COMMENT",
+};

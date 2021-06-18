@@ -1,7 +1,7 @@
 import axios from "axios";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
 import { authActionTypes } from "./types";
-import { fireToast } from "../../global/helpers";
+
 
 export const refreshToken = () => dispatch => {
   return new Promise(async (resolve, reject) => {
@@ -67,7 +67,7 @@ export const login = (email, password) => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    await axios.put("/auth/logout");
+    axios.put("/auth/logout");
     dispatch({
       type: authActionTypes.SET_AUTH,
       payload: {
@@ -76,7 +76,5 @@ export const logout = () => async dispatch => {
         accessTokenEndDate: null,
       },
     });
-  } catch (err) {
-    fireToast("error", "Could not log you out ! try again");
-  }
+  } catch (err) {}
 };

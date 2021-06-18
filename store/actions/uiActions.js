@@ -32,6 +32,7 @@ export const clearServerErrors = component => {
 };
 
 export const handleServerError = (err, component) => dispatch => {
+  console.error(err)
   const status = err.response?.status;
   const expectedStatuses = [400, 401, 404, 422, 409];
   if (expectedStatuses.includes(status)) {

@@ -1,10 +1,11 @@
-import Layout from "../components/layouts/Layout";
+import Alert from "../components/base/Alert";
 import axios from "axios";
 import { serializeServerError } from "../global/helpers";
 import VideoItem from "../components/videos/VideoItem";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { handleServerError } from "../store/actions/uiActions";
+import Link from "next/link";
 
 const Home = ({ videos, serverError }) => {
   const dispatch = useDispatch();
@@ -16,16 +17,23 @@ const Home = ({ videos, serverError }) => {
   }, []);
 
   return (
-    <Layout>
-      <div>
-        <p className="font-semibold mb-6">Recommended videos</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mb-6">
-          {videos.map(video => {
-            return <VideoItem video={video} key={video.id} />;
-          })}
-        </div>
+    <div>
+      <p className="font-semibold mb-6">Recommended videos</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mb-6">
+        {!videos.length && (
+          <Alert className="text-black dark:text-gray-200 font-semibold">
+            No videos from the members .
+            <Link href="/videos/upload">
+              <a className="ml-1 text-blue-500">Upload now</a>
+            </Link>
+          </Alert>
+        )}
+        {videos.map(video => {
+          return <VideoItem video={video} key={video.id} />;
+        })}
       </div>
-    </Layout>
+    </div>
   );
 };
 

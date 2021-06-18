@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
-import { useSelector , useDispatch } from "react-redux";
-import {  toggleLike, toggleDislike } from "../../store/actions/videosActions";
-import { validateFeelingsVariable } from "../../global/helpers";
-
+import { useSelector, useDispatch } from "react-redux";
+import { toggleLike, toggleDislike } from "../../store/actions/videosActions";
+import { fireToast, validateFeelingsVariable } from "../../global/helpers";
 
 const VideoSingleButtons = ({ video }) => {
   // redux
@@ -10,9 +9,11 @@ const VideoSingleButtons = ({ video }) => {
   const dispatch = useDispatch();
 
   const handleToggleLike = () => {
+    if (!authUser) return fireToast("info", "Please Login First");
     dispatch(toggleLike(video.id));
   };
   const handleToggleDislike = () => {
+    if (!authUser) return fireToast("info", "Please Login First");
     dispatch(toggleDislike(video.id));
   };
 

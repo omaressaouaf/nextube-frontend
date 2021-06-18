@@ -42,7 +42,7 @@ const Topbar = () => {
             </button>
           </form>
           <div className="flex items-center ml-auto  ">
-            <a href="#">
+            <a href="#" onClick={(e) => e.preventDefault()}>
               <ThemeSwitcher />
             </a>
             <Link href="/videos/upload">

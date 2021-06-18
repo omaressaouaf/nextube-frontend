@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { refreshToken } from "../store/actions/authActions";
 import { ThemeProvider } from "../context/ThemeContext";
+import Layout from "../components/layouts/Layout";
 
 function MyApp({ Component, pageProps }) {
   const authPending = useSelector(state => state.authReducer.authPending);
@@ -19,13 +20,10 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <ThemeProvider>
-      <Head>
-        <title>NexTube</title>
-        <meta name="description" content="A video streaming app where you can share your videos" />
-        <link rel="icon" href="/logo.png" />
-      </Head>
-      {authPending && <div id="preloader"></div>}
-      <Component {...pageProps} />
+      <Layout>
+        {authPending && <div id="preloader"></div>}
+        <Component {...pageProps} />
+      </Layout>
     </ThemeProvider>
   );
 }

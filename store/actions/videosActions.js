@@ -126,7 +126,6 @@ export const toggleLike = videoId => async (dispatch, getState) => {
     await axios.put(`/videos/${videoId}/togglelike`);
   } catch (err) {
     // README : don't handle errors here
-    console.log(err);
   }
 };
 

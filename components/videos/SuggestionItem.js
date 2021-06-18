@@ -13,15 +13,15 @@ const SuggestionItem = ({ video }) => {
       </Link>
       <div className="ml-2">
         <Link href={`/videos/${video.id}`}>
-          <a className="flex mb-2">
+          <a className="flex mb-0">
             <div className="mb-2 w-full text-black dark:text-gray-200 font-semibold">{video.title}</div>
           </a>
         </Link>
         <div className="text-sm">
           <Link href="#">
-            <a className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:gray-200">
+            <a className="text-gray-600 capitalize hover:text-black dark:text-gray-400 dark:hover:gray-200">
               {video.user.channelName}
-              <i className="fa fa-check-circle transition text-blue-500"></i>
+              <i className="fa fa-check-circle transition text-blue-500 ml-2"></i>
             </a>
           </Link>
         </div>

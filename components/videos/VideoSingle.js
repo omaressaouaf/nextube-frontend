@@ -20,8 +20,6 @@ const VideoSingle = ({ videoId }) => {
     dispatch(fetchVideo(videoId)).then(() => setLoading(false));
   }, [videoId]);
 
-
-
   return (
     <div className="video-single mt-2">
       <div className="video-details">
@@ -45,7 +43,7 @@ const VideoSingle = ({ videoId }) => {
               <div className="flex items-start order-2 md:order-1 w-full">
                 <Avatar className=" w-12 mr-3 mt-1" />
                 <div className="text-sm mt-1">
-                  <a href="#" className="font-semibold text-sm">
+                  <a href="#" className="font-semibold text-sm capitalize">
                     {video.user.channelName}
                     <i className="fa fa-check-circle text-blue-500 ml-2"></i>
                   </a>

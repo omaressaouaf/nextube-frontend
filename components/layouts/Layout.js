@@ -1,20 +1,16 @@
-import Head from "next/head";
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
-
+import MetaData from "./MetaData";
 import PropTypes from "prop-types";
 import { useTheme } from "../../context/ThemeContext";
 
-const Layout = ({ title, children }) => {
+const Layout = ({ children }) => {
   const { darkMode } = useTheme();
 
   return (
     <div className={`${darkMode && "dark"}`}>
-      <Head>
-        <title>{title && `${title} -`} NexTube </title>
-        <meta name="description" content="A video streaming app where you can share your videos" />
-        <link rel="icon" href="/logo.png" />
-      </Head>
+      <MetaData />
+
       <div className="bg-gray-100 dark:bg-lightBlack h-min-screen">
         <Topbar />
 
@@ -29,7 +25,6 @@ const Layout = ({ title, children }) => {
 };
 
 Layout.propTypes = {
-  title: PropTypes.string,
   children: PropTypes.any,
 };
 
