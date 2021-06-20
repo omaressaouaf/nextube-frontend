@@ -8,5 +8,5 @@ export default combineReducers({
   authReducer,
   uiReducer,
   videosReducer,
-  commentsReducer
+  commentsReducer,
 });

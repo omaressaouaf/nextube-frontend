@@ -5,10 +5,13 @@
 /* Tailwind components */
 @layer components {
   .btn-blue {
-    @apply bg-blue-600 focus:ring-blue-200;
+    @apply text-white bg-blue-600 focus:ring-blue-200;
   }
   .btn-red {
-    @apply bg-red-600 focus:ring-red-200;
+    @apply text-white bg-red-600 focus:ring-red-200;
+  }
+  .btn-gray {
+    @apply text-gray-700 bg-gray-300 focus:ring-gray-200;
   }
 }
 /* custom scroll */

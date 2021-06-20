@@ -27,7 +27,7 @@ AccessGate.defaultProps = {
   payload: null,
 };
 AccessGate.propTypes = {
-  abilityName: PropTypes.string.isRequired,
+  abilityName: PropTypes.string,
   payload: PropTypes.array,
   children: PropTypes.any.isRequired,
 };

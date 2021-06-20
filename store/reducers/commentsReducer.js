@@ -22,7 +22,8 @@ export default function commentsReducer(state = initialState, { type, payload })
       const currentCommentReplies = modifiedComments.filter(
         comm => comm.parentComment === payload.parentComment
       );
-      if (currentCommentReplies.length) {
+      // add the comment to the array if it's replies are shown or it's a root comment
+      if (currentCommentReplies.length || !modifiedComments.parentComment) {
         modifiedComments.unshift(payload);
       }
       modifiedComments = modifiedComments.map(comment =>

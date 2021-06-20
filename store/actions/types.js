@@ -25,7 +25,14 @@ export const videosActionTypes = {
 export const commentsActionTypes = {
   SET_COMMENTS: "SET_COMMENTS",
   SET_REPLIES: "SET_REPLIES",
-  ADD_COMMENT : "ADD_COMMENT",
+  ADD_COMMENT: "ADD_COMMENT",
   DELETE_COMMENT: "DELETE_COMMENT",
   UPDATE_COMMENT: "UPDATE_COMMENT",
+};
+
+// subscriptions action types
+export const subscriptionsActionTypes = {
+  SUBSCRIBE: "SUBSCRIBE",
+  UNSUBSCRIBE: "UNSUBSCRIBE",
+  SET_SUBSCRIPTIONS: "SET_SUBSCRIPTIONS",
 };

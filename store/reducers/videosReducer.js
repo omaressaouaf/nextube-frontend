@@ -1,5 +1,5 @@
 import { validateFeelingsVariable } from "../../global/helpers";
-import { videosActionTypes } from "../actions/types";
+import { subscriptionsActionTypes, videosActionTypes } from "../actions/types";
 
 const initialState = {
   uploadProgresses: {},
@@ -55,7 +55,9 @@ export default function videosReducer(state = initialState, { type, payload }) {
         modifiedVideo[feelings] = modifiedVideo[feelings].filter(userId => userId != authUser.id);
       } else {
         if (modifiedVideo[oppositeFeelings].includes(authUser.id)) {
-          modifiedVideo[oppositeFeelings] = modifiedVideo[oppositeFeelings].filter(userId => userId != authUser.id);
+          modifiedVideo[oppositeFeelings] = modifiedVideo[oppositeFeelings].filter(
+            userId => userId != authUser.id
+          );
         }
         modifiedVideo[feelings].push(authUser.id);
       }
@@ -63,7 +65,22 @@ export default function videosReducer(state = initialState, { type, payload }) {
         ...state,
         video: modifiedVideo,
       };
-
+    case subscriptionsActionTypes.SUBSCRIBE:
+      return {
+        ...state,
+        video: {
+          ...state.video,
+          user: { ...state.video.user, subscribersCount: state.video.user.subscribersCount + 1 },
+        },
+      };
+    case subscriptionsActionTypes.UNSUBSCRIBE:
+      return {
+        ...state,
+        video: {
+          ...state.video,
+          user: { ...state.video.user, subscribersCount: state.video.user.subscribersCount - 1 },
+        },
+      };
     default:
       return state;
   }
