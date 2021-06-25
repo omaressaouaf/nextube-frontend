@@ -26,14 +26,12 @@ axios.interceptors.request.use(async config => {
     const accessTokenEndDate = store.getState().authReducer.accessTokenEndDate;
     if (
       accessTokenEndDate &&
-      accessTokenEndDate - 5000 <= Date.now() &&
+      accessTokenEndDate - 10000 <= Date.now() &&
       config.url != "/auth/refreshtoken"
     ) {
       const newAccessToken = await store.dispatch(refreshToken());
-      const modifiedConfig = {
-        ...config,
-        headers: { ...config.headers, Authorization: `Bearer ${newAccessToken}` },
-      };
+
+      config.headers.Authorization =  `Bearer ${newAccessToken}`;
       return modifiedConfig;
     }
   } finally {

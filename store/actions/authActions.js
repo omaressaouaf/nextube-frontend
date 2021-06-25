@@ -15,8 +15,8 @@ export const setAuthData =
       },
     });
 
-    // axios.defaults.headers.common["Authorization"] =
-    //   typeof accessToken === "undefined" || !accessToken ? undefined : `Bearer ${accessToken}`;
+    axios.defaults.headers.common["Authorization"] =
+      typeof accessToken === "undefined" || !accessToken ? undefined : `Bearer ${accessToken}`;
   };
 
 export const refreshToken = () => dispatch => {
