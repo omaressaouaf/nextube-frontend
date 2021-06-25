@@ -1,21 +1,29 @@
-import axios from "axios";
+import { axios } from "../../global/bootstrap";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
 import { authActionTypes } from "./types";
+import { fireToast } from "../../global/helpers";
 
+export const setAuthData =
+  ({ user, accessToken, accessTokenEndDate }) =>
+  dispatch => {
+    dispatch({
+      type: authActionTypes.SET_AUTH,
+      payload: {
+        user: user,
+        accessToken: accessToken,
+        accessTokenEndDate: accessTokenEndDate,
+      },
+    });
+
+    // axios.defaults.headers.common["Authorization"] =
+    //   typeof accessToken === "undefined" || !accessToken ? undefined : `Bearer ${accessToken}`;
+  };
 
 export const refreshToken = () => dispatch => {
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.put("/auth/refreshtoken");
-      dispatch({
-        type: authActionTypes.SET_AUTH,
-        payload: {
-          user: data.user,
-          accessToken: data.accessToken,
-          accessTokenEndDate: data.accessTokenEndDate,
-        },
-      });
-      axios.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
+      dispatch(setAuthData(data));
       resolve(data.accessToken);
     } catch (err) {
       dispatch({
@@ -49,15 +57,7 @@ export const login = (email, password) => async dispatch => {
   try {
     dispatch(setLoading(component));
     const { data } = await axios.post("/auth/login", { email, password });
-    dispatch({
-      type: authActionTypes.SET_AUTH,
-      payload: {
-        user: data.user,
-        accessToken: data.accessToken,
-        accessTokenEndDate: data.accessTokenEndDate,
-      },
-    });
-    axios.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
+    dispatch(setAuthData(data));
   } catch (err) {
     dispatch(handleServerError(err, component));
   } finally {
@@ -68,13 +68,9 @@ export const login = (email, password) => async dispatch => {
 export const logout = () => async dispatch => {
   try {
     axios.put("/auth/logout");
-    dispatch({
-      type: authActionTypes.SET_AUTH,
-      payload: {
-        user: null,
-        accessToken: null,
-        accessTokenEndDate: null,
-      },
-    });
-  } catch (err) {}
+    dispatch(setAuthData({}));
+    delete axios.defaults.headers.common["Authorization"];
+  } catch (err) {
+    fireToast("error", "Could not log you out ! try again");
+  }
 };

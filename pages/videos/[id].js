@@ -1,7 +1,8 @@
 import MetaData from "../../components/layouts/MetaData";
 import VideoSingle from "../../components/videos/VideoSingle";
-import SuggestionList from "../../components/videos/SuggestionList";
+import SuggestionList from "../../components/suggestions/SuggestionList";
 import CommentList from "../../components/comments/CommentList";
+import Divider from "../../components/base/Divider";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
@@ -18,7 +19,7 @@ const Video = () => {
       <div className="video-all col-span-12 lg:col-span-8">
         {router.isReady && <VideoSingle videoId={id} />}
 
-        <hr className="my-5 dark:border-darkGray" />
+        <Divider />
 
         <div className="comments-section w-full">{router.isReady && <CommentList videoId={id} />}</div>
       </div>

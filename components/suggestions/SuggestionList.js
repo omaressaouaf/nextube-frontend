@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { fetchSuggestions } from "../../store/actions/videosActions";
 import PropTypes from "prop-types";
 import SuggestionItem from "./SuggestionItem";
-import SuggestionListSkeleton from "./SuggestionListSkeleton";
+import SuggestionListSkeleton from "../videos/SuggestionListSkeleton";
 
 const SuggestionList = ({ videoId }) => {
   // redux

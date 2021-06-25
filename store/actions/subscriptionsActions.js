@@ -1,9 +1,8 @@
-import axios from "axios";
+import {axios} from "../../global/bootstrap";
 import { subscriptionsActionTypes } from "./types";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
 
 export const toggleSubscribe = (userId, authUserSubscribedToVideoUser) => async dispatch => {
-  // TODO CHANGE COMPONENT
   const component = "SubscriptionButton";
   try {
     dispatch(setLoading(component));

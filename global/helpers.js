@@ -47,7 +47,9 @@ export const fireToast = (icon, title) => {
 
 export const serializeServerError = err => {
   return {
-    response: { status: err.response.status, data: { message: err.response.data.message } },
+    response: err.response
+      ? { status: err.response.status, data: { message: err.response.data.message } }
+      : {},
   };
 };
 
@@ -74,3 +76,6 @@ export const validateFeelingsVariable = feelings => {
   }
 };
 
+export const onServer = () => {
+  return typeof window === "undefined";
+};

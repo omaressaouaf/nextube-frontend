@@ -1,9 +1,7 @@
-import axios from "axios";
+import { axios } from "../../global/bootstrap";
 import { fireToast } from "../../global/helpers";
 import { videosActionTypes } from "./types";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
-
-
 
 const setUploadProgress = ({ identifier, title, percentage, source }) => {
   return {

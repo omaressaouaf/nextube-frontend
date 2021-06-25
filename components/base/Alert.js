@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 const Alert = ({ className, icon, children }) => {
   return (
-    <div className={`text-white text-sm px-6 py-4 border-0 rounded relative mb-4 shadow-md ${className} `}>
+    <div className={`text-gray-800 dark:text-gray-200 text-sm px-6 py-4 border-0 rounded relative mb-4 shadow-md ${className} `}>
       {icon && (
         <span className="text-xl inline-block mr-5 align-middle">
           <i className={icon} />

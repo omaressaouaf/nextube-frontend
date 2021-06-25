@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useEffect } from "react";
 import { toggleSubscribe } from "../../store/actions/subscriptionsActions";
+import { fireToast } from "../../global/helpers";
 
 const SubscriptionButton = ({ userId }) => {
   // redux
@@ -24,6 +25,7 @@ const SubscriptionButton = ({ userId }) => {
   }, [authUser]);
 
   const handleToggleSubscribe = () => {
+    if (!authUser) return fireToast("info", "Please Login First");
     dispatch(toggleSubscribe(userId, authUserSubscribedToVideoUser));
   };
 

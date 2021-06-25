@@ -3,16 +3,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatDateAgo } from "../../global/helpers";
 import { fetchVideo } from "../../store/actions/videosActions";
 import Avatar from "../base/Avatar";
+import Divider from "../base/Divider";
 import VideoSingleSkeleton from "./VideoSingleSkeleton";
 import ShowMore from "react-show-more";
 import PropTypes from "prop-types";
 import VideoSingleButtons from "./VideoSingleButtons";
-import SubscriptionButton from "./SubscriptionButton";
+import SubscriptionButton from "../subscriptions/SubscriptionButton";
 
 const VideoSingle = ({ videoId }) => {
   // redux
   const dispatch = useDispatch();
-  const video = useSelector(state => state.videosReducer.video);
+  const [video, authUser] = useSelector(state => [
+    state.videosReducer.video,
+    state.authReducer.authUser,
+  ]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -43,7 +47,7 @@ const VideoSingle = ({ videoId }) => {
               <VideoSingleButtons video={video} />
             </div>
 
-            <hr className="my-5 dark:border-darkGray" />
+            <Divider />
             <div className="video-description flex items-start flex-wrap md:flex-nowrap  justify-between">
               <div className="flex items-start order-2 md:order-1 w-full">
                 <Avatar src={video.user.avatar} className=" w-12 mr-3 mt-1" />
@@ -67,7 +71,7 @@ const VideoSingle = ({ videoId }) => {
                   </div>
                 </div>
               </div>
-              <SubscriptionButton userId={video.user.id} />
+              {authUser?.id !== video.user.id && <SubscriptionButton userId={video.user.id} />}
             </div>
           </>
         )}
