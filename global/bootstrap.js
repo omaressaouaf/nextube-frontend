@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import Router from "next/router";
 import NProgress from "nprogress";
 import store from "../store";
@@ -14,27 +14,45 @@ Router.events.on("routeChangeComplete", () => {
 });
 Router.events.on("routeChangeError", NProgress.done);
 
-// Axios instance with defaults
-export const axios = Axios.create({
-  baseURL: "http://localhost:5000",
-  withCredentials: true,
-});
+// axios defaults
+axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.withCredentials = true;
 
 // axios refresh token
-axios.interceptors.request.use(async config => {
-  try {
-    const accessTokenEndDate = store.getState().authReducer.accessTokenEndDate;
-    if (
-      accessTokenEndDate &&
-      accessTokenEndDate - 10000 <= Date.now() &&
-      config.url != "/auth/refreshtoken"
-    ) {
-      const newAccessToken = await store.dispatch(refreshToken());
+let pendingRequestsQueue = [];
+let isRefreshing = false;
 
-      config.headers.Authorization =  `Bearer ${newAccessToken}`;
-      return modifiedConfig;
+const onRefreshed = newAccessToken => {
+  pendingRequestsQueue.map(cb => cb(newAccessToken));
+  pendingRequestsQueue = [];
+};
+
+axios.interceptors.response.use(
+  res => res,
+  async error => {
+    try {
+      const originalRequest = error.config;
+
+      if (error.response.data.message === "access token expired") {
+        const retrial = new Promise(resolve => {
+          pendingRequestsQueue.push(newAccessToken => {
+            originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
+            resolve(axios(originalRequest));
+          });
+        });
+
+        if (!isRefreshing) {
+          isRefreshing = true;
+          const newAccessToken = await store.dispatch(refreshToken());
+          isRefreshing = false;
+          onRefreshed(newAccessToken);
+        }
+
+        return retrial;
+      }
+      return Promise.reject(error);
+    } catch {
+      return Promise.reject(error);
     }
-  } finally {
-    return config;
   }
-});
+);

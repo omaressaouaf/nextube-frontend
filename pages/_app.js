@@ -9,7 +9,7 @@ import { setAuthData } from "../store/actions/authActions";
 import { ThemeProvider } from "../context/ThemeContext";
 import Layout from "../components/layouts/Layout";
 import App from "next/app";
-import { axios } from "../global/bootstrap";
+import axios from "axios";
 import { onServer } from "../global/helpers";
 
 const MyApp = ({ Component, pageProps, authData }) => {
@@ -35,40 +35,39 @@ MyApp.getInitialProps = async appContext => {
   const { req, res } = appContext.ctx;
   let authData = {};
 
-  /* refresh token on
-   1. page reload
-   2. when navigating to a page that has getServerSideProps and the axios auth header is undefined or malformed (Bearer undefined )
+  /* refresh token if :
+   1. when page reloads
+   2. when navigating to a page that has getServerSideProps and the axios auth header is undefined
    3. auth header end date(access token) expired
-     README : server memory glitch : due to the server keeping the auth headerS even after page refresh the auth header will be something like Bearer undefined )
   */
 
   if (onServer()) {
-    /* first refresh set axios auth headers back to undefined */
+    /* on the first refresh delete axios auth headers so we won't have Bearer undefined
+    README : server memory glitch : due to the server keeping the auth headers even after page refresh the auth header will be something like Bearer undefined ) */
+
     if (!req.url.startsWith("/_next/data")) {
-      axios.defaults.headers.common["Authorization"] = undefined;
-      axios.defaults.headers.common["Authorization-End-Date"] = undefined;
+      delete axios.defaults.headers.common["Authorization"];
+      delete axios.defaults.headers.common["Authorization-End-Date"];
     }
     const axiosAuthHeader = axios.defaults.headers.common["Authorization"];
     const axiosAuthEndDateHeader = axios.defaults.headers.common["Authorization-End-Date"];
     if (
-      typeof axiosAuthHeader === "undefined" ||
-      axiosAuthHeader === "Bearer undefined" ||
+      !axiosAuthHeader ||
       (axiosAuthEndDateHeader && axiosAuthEndDateHeader - 10000 <= Date.now())
     ) {
       try {
-        const apiRes = await fetch("http://localhost:5000/auth/refreshtoken", {
+        const apiRes = await axios("/auth/refreshtoken", {
           method: "put",
-          headers: { cookie: req.headers.cookie },
-          credentials: "include",
+          headers: { cookie: req.headers.cookie ?? "" },
         });
-        /* forward the cookie sent by express from next js server to the client */
-        res.setHeader("Set-Cookie", apiRes.headers.get("set-cookie") ?? "");
-        const data = await apiRes.json();
-        /* set axios default in the server because the axios instance header in the server is not the same as client(different memories) */
-        axios.defaults.headers.common["Authorization"] = `Bearer ${data.accessToken}`;
-        axios.defaults.headers.common["Authorization-End-Date"] = data.accessTokenEndDate;
+        authData = apiRes.data;
 
-        authData = data;
+        /* forward the cookie sent by express from next js server to the client */
+        res.setHeader("Set-Cookie", apiRes.headers["set-cookie"] ?? "");
+
+        /* set axios default in the server because the axios instance header in the server is not the same as client(different memories) */
+        axios.defaults.headers.common["Authorization"] = `Bearer ${authData.accessToken}`;
+        axios.defaults.headers.common["Authorization-End-Date"] = authData.accessTokenEndDate;
       } catch (err) {}
     }
   }

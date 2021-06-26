@@ -7,6 +7,10 @@ export const formatDateAgo = date => {
   return dayjs(date).fromNow();
 };
 
+export const formatDateNormal = date => {
+  return dayjs(date).format('MMMM D, YYYY h:mm A')
+}
+
 export const fireConfirm = callbackfn => {
   swal
     .fire({
@@ -79,3 +83,8 @@ export const validateFeelingsVariable = feelings => {
 export const onServer = () => {
   return typeof window === "undefined";
 };
+
+
+export const truncateString = (str) => {
+  return str.slice(0,200) + "...."
+}

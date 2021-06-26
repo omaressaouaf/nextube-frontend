@@ -1,4 +1,4 @@
-import { axios } from "../../global/bootstrap";
+import axios from "axios";
 import { fireToast } from "../../global/helpers";
 import { videosActionTypes } from "./types";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
@@ -124,6 +124,7 @@ export const toggleLike = videoId => async (dispatch, getState) => {
     await axios.put(`/videos/${videoId}/togglelike`);
   } catch (err) {
     // README : don't handle errors here
+    console.log('hiii')
   }
 };
 

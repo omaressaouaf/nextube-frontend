@@ -1,5 +1,5 @@
 import { validateFeelingsVariable } from "../../global/helpers";
-import { subscriptionsActionTypes, videosActionTypes } from "../actions/types";
+import { usersActionTypes, videosActionTypes } from "../actions/types";
 
 const initialState = {
   uploadProgresses: {},
@@ -65,7 +65,7 @@ export default function videosReducer(state = initialState, { type, payload }) {
         ...state,
         video: modifiedVideo,
       };
-    case subscriptionsActionTypes.SUBSCRIBE:
+    case usersActionTypes.SUBSCRIBE:
       return {
         ...state,
         video: {
@@ -73,7 +73,7 @@ export default function videosReducer(state = initialState, { type, payload }) {
           user: { ...state.video.user, subscribersCount: state.video.user.subscribersCount + 1 },
         },
       };
-    case subscriptionsActionTypes.UNSUBSCRIBE:
+    case usersActionTypes.UNSUBSCRIBE:
       return {
         ...state,
         video: {

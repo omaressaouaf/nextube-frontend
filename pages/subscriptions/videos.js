@@ -1,15 +1,15 @@
-import { axios } from "../global/bootstrap";
+import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import Divider from "../components/base/Divider";
-import SubscriptionVideoItem from "../components/subscriptions/SubscriptionVideoItem";
-import { serializeServerError } from "../global/helpers";
-import { handleServerError } from "../store/actions/uiActions";
+import Divider from "../../components/base/Divider";
+import SubscriptionVideoItem from "../../components/subscriptions/SubscriptionVideoItem";
+import { serializeServerError } from "../../global/helpers";
+import { handleServerError } from "../../store/actions/uiActions";
 import Link from "next/link";
-import Alert from "../components/base/Alert";
-import withAuth from '../components/HOC/withAuth'
+import Alert from "../../components/base/Alert";
+import withAuth from "../../components/HOC/withAuth";
 
-const subscriptions = ({ subscriptionsWithVideos, serverError }) => {
+const SubscriptionsVideosPage = ({ subscriptionsVideos, serverError }) => {
   // redux
   const dispatch = useDispatch();
 
@@ -20,8 +20,13 @@ const subscriptions = ({ subscriptionsWithVideos, serverError }) => {
   }, []);
 
   return (
-    <div>
-      {!subscriptionsWithVideos.length && (
+    <div className="relative mt-2">
+      <div className="absolute right-0">
+        <Link href="/subscriptions">
+          <a className="uppercase font-semibold text-blue-600">Manage</a>
+        </Link>
+      </div>
+      {!subscriptionsVideos.length && (
         <Alert className="font-semibold">
           No Subscriptions at the moment .
           <Link href="/">
@@ -29,7 +34,7 @@ const subscriptions = ({ subscriptionsWithVideos, serverError }) => {
           </Link>
         </Alert>
       )}
-      {subscriptionsWithVideos.map(subscription => {
+      {subscriptionsVideos.map(subscription => {
         return (
           <div key={subscription._id}>
             <SubscriptionVideoItem subscription={subscription} />
@@ -42,20 +47,20 @@ const subscriptions = ({ subscriptionsWithVideos, serverError }) => {
 };
 
 export const getServerSideProps = async context => {
-  let subscriptionsWithVideos = [];
+  let subscriptionsVideos = [];
   let serverError = null;
   try {
     const { data } = await axios.get("/subscriptions/videos");
-    subscriptionsWithVideos = data.subscriptionsWithVideos;
+    subscriptionsVideos = data.subscriptionsVideos;
   } catch (err) {
     serverError = serializeServerError(err);
   }
   return {
     props: {
-      subscriptionsWithVideos,
+      subscriptionsVideos,
       serverError,
     },
   };
 };
 
-export default withAuth(subscriptions);
+export default withAuth(SubscriptionsVideosPage);

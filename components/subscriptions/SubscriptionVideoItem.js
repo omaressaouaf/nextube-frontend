@@ -8,14 +8,14 @@ function SubscriptionVideoItem({ subscription }) {
   return (
     <div className="subscription-video-item">
       <div className="flex items-center mb-5">
-        <Avatar src={subscription.user.avatar} className="w-8 mr-2" />
+        <Avatar src={subscription.user.avatar} className="w-10 mr-2" />
         <p className="text-gray-800 dark:text-gray-200 font-semibold capitalize">
           {subscription.user.channelName}
         </p>
       </div>
       {subscription.videos.map(video => {
         return (
-          <div className="flex mb-2" key={video._id}>
+          <div className="flex mb-2 flex-wrap" key={video._id}>
             <Link href={`/videos/${video._id}`}>
               <a className="flex mb-2">
                 <Image

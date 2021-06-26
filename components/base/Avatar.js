@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Avatar = ({ className, src }) => {
+const Avatar = ({ className, src , ...restProps }) => {
   return (
     <img
       src={
@@ -9,6 +9,7 @@ const Avatar = ({ className, src }) => {
       }
       alt="avatar"
       className={`rounded-full  ${className}`}
+      {...restProps}
     />
   );
 };

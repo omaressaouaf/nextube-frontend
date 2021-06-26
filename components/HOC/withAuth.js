@@ -1,16 +1,22 @@
+import axios from "axios";
 import Router from "next/router";
 import { useSelector } from "react-redux";
+import { onServer } from "../../global/helpers";
 
 const withAuth = WrappedComponent => {
   return props => {
-    if (typeof window !== "undefined") {
-      const [authPending, authUser] = useSelector(state => [state.authReducer.authPending, state.authReducer.authUser]);
+    const [authPending, authUser] = useSelector(state => [
+      state.authReducer.authPending,
+      state.authReducer.authUser,
+    ]);
 
-      if (!authPending && !authUser) {
-        Router.replace("/signin");
-        return null;
-      }
+    if (authPending) return null;
+
+    if (!authUser) {
+      Router.replace("/signin");
+      return null;
     }
+
     return <WrappedComponent {...props} />;
   };
 };

@@ -1,4 +1,4 @@
-import { axios } from "../../global/bootstrap";
+import axios from "axios";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
 import { authActionTypes } from "./types";
 import { fireToast } from "../../global/helpers";
@@ -14,26 +14,18 @@ export const setAuthData =
         accessTokenEndDate: accessTokenEndDate,
       },
     });
-
-    axios.defaults.headers.common["Authorization"] =
-      typeof accessToken === "undefined" || !accessToken ? undefined : `Bearer ${accessToken}`;
+    axios.defaults.headers.common["Authorization"] = accessToken ? `Bearer ${accessToken}` : null;
   };
 
 export const refreshToken = () => dispatch => {
   return new Promise(async (resolve, reject) => {
     try {
+
       const { data } = await axios.put("/auth/refreshtoken");
       dispatch(setAuthData(data));
       resolve(data.accessToken);
     } catch (err) {
-      dispatch({
-        type: authActionTypes.SET_AUTH,
-        payload: {
-          user: null,
-          accessToken: null,
-          accessTokenEndDate: null,
-        },
-      });
+      dispatch(setAuthData({}));
       reject();
     }
   });

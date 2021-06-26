@@ -1,10 +1,10 @@
-import { authActionTypes, subscriptionsActionTypes } from "../actions/types";
+import { authActionTypes, usersActionTypes } from "../actions/types";
 
 const initialState = {
   authUser: null,
-  authPending: true,
   accessToken: null,
   accessTokenEndDate: null,
+  authPending: true,
 };
 export default function authReducer(state = initialState, { type, payload }) {
   switch (type) {
@@ -16,12 +16,13 @@ export default function authReducer(state = initialState, { type, payload }) {
         accessTokenEndDate: payload.accessTokenEndDate,
         authPending: false,
       };
-    case subscriptionsActionTypes.SUBSCRIBE:
+
+    case usersActionTypes.SUBSCRIBE:
       return {
         ...state,
         authUser: { ...state.authUser, subscriptions: [payload, ...state.authUser.subscriptions] },
       };
-    case subscriptionsActionTypes.UNSUBSCRIBE:
+    case usersActionTypes.UNSUBSCRIBE:
       return {
         ...state,
         authUser: {

@@ -1,5 +1,5 @@
 import Alert from "../components/base/Alert";
-import { axios } from "../global/bootstrap";
+import axios from "axios";
 import { serializeServerError } from "../global/helpers";
 import VideoItem from "../components/videos/VideoItem";
 import { useEffect } from "react";

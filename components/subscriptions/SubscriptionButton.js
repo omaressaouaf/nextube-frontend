@@ -3,19 +3,19 @@ import Button from "../base/Button";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { useEffect } from "react";
-import { toggleSubscribe } from "../../store/actions/subscriptionsActions";
+import { toggleSubscribe } from "../../store/actions/usersActions";
 import { fireToast } from "../../global/helpers";
 
 const SubscriptionButton = ({ userId }) => {
   // redux
   const [authUser, loading] = useSelector(state => [
     state.authReducer.authUser,
-    state.uiReducer.loadings.SubscriptionButton,
+    state.uiReducer.loadings[`SubscriptionButton${userId}`],
   ]);
   const dispatch = useDispatch();
 
   const [subscribedToArray, setSubscribedToArray] = useState([]);
-  const authUserSubscribedToVideoUser = subscribedToArray.includes(userId);
+  const authUserAlreadySubscribed = subscribedToArray.includes(userId);
   useEffect(() => {
     if (authUser) {
       setSubscribedToArray(
@@ -26,7 +26,7 @@ const SubscriptionButton = ({ userId }) => {
 
   const handleToggleSubscribe = () => {
     if (!authUser) return fireToast("info", "Please Login First");
-    dispatch(toggleSubscribe(userId, authUserSubscribedToVideoUser));
+    dispatch(toggleSubscribe(userId, authUserAlreadySubscribed));
   };
 
   return (
@@ -34,10 +34,10 @@ const SubscriptionButton = ({ userId }) => {
       <Button
         onClick={handleToggleSubscribe}
         disabled={loading}
-        className={`mb-2 flex items-center ${authUserSubscribedToVideoUser ? "btn-gray" : "btn-red"}`}
+        className={`mb-2 flex items-center ${authUserAlreadySubscribed ? "btn-gray" : "btn-red"}`}
       >
         {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
-        {authUserSubscribedToVideoUser ? "Subscribed" : "Subscribe"}
+        {authUserAlreadySubscribed ? "Subscribed" : "Subscribe"}
       </Button>
     </div>
   );

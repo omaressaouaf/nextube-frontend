@@ -1,4 +1,4 @@
-import {axios} from "../../global/bootstrap";
+import axios from "axios";
 import { clearLoading, handleServerError, setLoading } from "../actions/uiActions";
 import { commentsActionTypes } from "./types";
 

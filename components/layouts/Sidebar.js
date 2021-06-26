@@ -46,26 +46,29 @@ const Sidebar = () => {
         {/* Home */}
         <SidebarItem title="Home" pathname="/" icon="fa fa-home" />
         <SidebarItem title="Trending" pathname="/er" icon="fa fa-fire" />
-        <SidebarItem title="Subscriptions" pathname="/subscriptions" icon="fa fa-list" />
+        <SidebarItem title="Subscriptions Latest" pathname="/subscriptions/videos" icon="fa fa-list" />
 
         {/* Library */}
         <SidebarHeading title="Library" />
-        <SidebarItem title="Subscriptions" pathname="/reer" icon="fa fa-list" />
+        <SidebarItem title="Subscriptions" pathname="/subscriptions" icon="fa fa-folder-plus" />
         <SidebarItem title="Watch Later" pathname="/er" icon="fa fa-clock" />
         <SidebarItem title="Liked Videos" pathname="/er" icon="fa fa-thumbs-up" />
 
         {/* Subscriptions */}
-
-        <SidebarHeading title="Subscriptions" />
-        {authUser.subscriptions.slice(0, shownSubscriptionsNumber).map(({ subscribedTo }) => (
-          <SidebarItem
-            key={subscribedTo.id}
-            title={subscribedTo.channelName}
-            pathname="/reer"
-            avatar={subscribedTo.avatar}
-          />
-        ))}
-        {authUser.subscriptions.length > 1 && renderShowMoreLessSubscriptionsButtons()}
+        {authUser.subscriptions.length > 0 && (
+          <>
+            <SidebarHeading title="Subscriptions" />
+            {authUser.subscriptions.slice(0, shownSubscriptionsNumber).map(({ subscribedTo }) => (
+              <SidebarItem
+                key={subscribedTo.id}
+                title={subscribedTo.channelName}
+                pathname="/reer"
+                avatar={subscribedTo.avatar}
+              />
+            ))}
+            {authUser.subscriptions.length > 1 && renderShowMoreLessSubscriptionsButtons()}
+          </>
+        )}
 
         {/* More */}
         <SidebarHeading title="More" />

@@ -30,8 +30,8 @@ export const commentsActionTypes = {
   UPDATE_COMMENT: "UPDATE_COMMENT",
 };
 
-// subscriptions action types
-export const subscriptionsActionTypes = {
+// users action types
+export const usersActionTypes = {
   SUBSCRIBE: "SUBSCRIBE",
   UNSUBSCRIBE: "UNSUBSCRIBE",
   SET_SUBSCRIPTIONS: "SET_SUBSCRIPTIONS",
