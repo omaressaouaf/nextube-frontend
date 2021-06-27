@@ -8,8 +8,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 function CommentList({ videoId }) {
   // redux
-  const [comments, loading] = useSelector(state => [
+  const [comments,authUser , loading] = useSelector(state => [
     state.commentsReducer.comments,
+    state.authReducer.authUser,
     state.uiReducer.loadings.CommentList,
   ]);
   const dispatch = useDispatch();
@@ -21,9 +22,11 @@ function CommentList({ videoId }) {
   return (
     <>
       <p className="text-gray-800 dark:text-gray-200">10 Comments</p>
-      <div className="comments-form">
-        <CommentForm formMode="add" />
-      </div>
+      {authUser && (
+        <div className="comments-form">
+          <CommentForm formMode="add" />
+        </div>
+      )}
       {loading ? (
         <div className="w-full text-center mt-5">
           <ClipLoader color="gray" size={50} />

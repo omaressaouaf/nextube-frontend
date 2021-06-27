@@ -37,36 +37,42 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`sidebar pb-6 bg-white dark:bg-lighterBlack  shadow-lg h-screen top-16 overflow-hidden hover:overflow-auto has-cool-scrollbar transition-all duration-75 z-40 ${
-        !sidebarOpen && "-ml-80"
+      className={`sidebar  flex-shrink-0 pb-6 bg-white dark:bg-lighterBlack border-t dark:border-darkGray  shadow-lg h-screen top-16 overflow-hidden hover:overflow-auto has-cool-scrollbar transition-all duration-75 z-40 ${
+        !sidebarOpen ? "-ml-80 max-w-80" : "max-w-60"
       }
       ${router.pathname == "/videos/[id]" ? "fixed w-66" : "fixed w-66 lg:sticky lg:w-80"}`}
     >
       <div className="mb-6 text-black dark:text-gray-200">
         {/* Home */}
         <SidebarItem title="Home" pathname="/" icon="fa fa-home" />
-        <SidebarItem title="Trending" pathname="/er" icon="fa fa-fire" />
-        <SidebarItem title="Subscriptions Latest" pathname="/subscriptions/videos" icon="fa fa-list" />
-
-        {/* Library */}
-        <SidebarHeading title="Library" />
-        <SidebarItem title="Subscriptions" pathname="/subscriptions" icon="fa fa-folder-plus" />
-        <SidebarItem title="Watch Later" pathname="/er" icon="fa fa-clock" />
-        <SidebarItem title="Liked Videos" pathname="/er" icon="fa fa-thumbs-up" />
-
-        {/* Subscriptions */}
-        {authUser.subscriptions.length > 0 && (
+        <SidebarItem title="Trending" pathname="/videos/trending" icon="fa fa-fire" />
+        {authUser && (
           <>
-            <SidebarHeading title="Subscriptions" />
-            {authUser.subscriptions.slice(0, shownSubscriptionsNumber).map(({ subscribedTo }) => (
-              <SidebarItem
-                key={subscribedTo.id}
-                title={subscribedTo.channelName}
-                pathname="/reer"
-                avatar={subscribedTo.avatar}
-              />
-            ))}
-            {authUser.subscriptions.length > 1 && renderShowMoreLessSubscriptionsButtons()}
+            <SidebarItem title="Subscriptions" pathname="/subscriptions/videos" icon="fa fa-list" />
+
+            {/* Library */}
+            <SidebarHeading title="Library" />
+            <SidebarItem title="Subscriptions" pathname="/subscriptions" icon="fa fa-folder-plus" />
+            <SidebarItem title="Watch Later" pathname="/er" icon="fa fa-clock" />
+            <SidebarItem title="Liked Videos" pathname="/er" icon="fa fa-thumbs-up" />
+
+            {/* Subscriptions */}
+            {authUser.subscriptions.length > 0 && (
+              <>
+                <SidebarHeading title="Subscriptions" />
+                {authUser.subscriptions
+                  .slice(0, shownSubscriptionsNumber)
+                  .map(({ subscribedTo }) => (
+                    <SidebarItem
+                      key={subscribedTo.id}
+                      title={subscribedTo.channelName}
+                      pathname="/reer"
+                      avatar={subscribedTo.avatar}
+                    />
+                  ))}
+                {authUser.subscriptions.length > 1 && renderShowMoreLessSubscriptionsButtons()}
+              </>
+            )}
           </>
         )}
 

@@ -9,11 +9,9 @@ const VideoSingleButtons = ({ video }) => {
   const dispatch = useDispatch();
 
   const handleToggleLike = () => {
-    if (!authUser) return fireToast("info", "Please Login First");
     dispatch(toggleLike(video.id));
   };
   const handleToggleDislike = () => {
-    if (!authUser) return fireToast("info", "Please Login First");
     dispatch(toggleDislike(video.id));
   };
 
@@ -26,17 +24,27 @@ const VideoSingleButtons = ({ video }) => {
   };
   return (
     <>
-      <button onClick={handleToggleLike} className={`${feltByAuthUser("likes") && "text-blue-500"} focus:outline-none`}>
-        <i className="fa fa-thumbs-up fa-lg"></i> {video.likes.length}
-      </button>
-      <button onClick={handleToggleDislike} className={`${feltByAuthUser("dislikes") && "text-blue-500"} focus:outline-none`}>
-        <i className="fa fa-thumbs-down fa-lg"></i> {video.dislikes.length}
-      </button>
+      {authUser && (
+        <>
+          <button
+            onClick={handleToggleLike}
+            className={`${feltByAuthUser("likes") && "text-blue-500"} focus:outline-none`}
+          >
+            <i className="fa fa-thumbs-up fa-lg"></i> {video.likes.length}
+          </button>
+          <button
+            onClick={handleToggleDislike}
+            className={`${feltByAuthUser("dislikes") && "text-blue-500"} focus:outline-none`}
+          >
+            <i className="fa fa-thumbs-down fa-lg"></i> {video.dislikes.length}
+          </button>
+          <button className="focus:outline-none">
+            <i className="fa fa-clock fa-lg"></i> Later
+          </button>
+        </>
+      )}
       <button className="focus:outline-none">
         <i className="fa fa-share fa-lg"></i> Share
-      </button>
-      <button className="focus:outline-none">
-        <i className="fa fa-clock fa-lg"></i> Later
       </button>
     </>
   );

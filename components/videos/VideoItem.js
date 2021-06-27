@@ -10,7 +10,7 @@ const VideoItem = ({ video }) => {
     <div className="video-preview mb-5" key={video.id}>
       <Link href={`/videos/${video.id}`}>
         <a>
-          <Image width={500} height={300} src={video.thumbnail} className="mb-1 hover:opacity-75 transition-opacity" alt="" />
+          <Image placeholder="blur" blurDataURL={video.thumbnail} width={500} height={300} src={video.thumbnail} className="mb-1 hover:opacity-75 transition-opacity" alt="thumbnail" />
         </a>
       </Link>
       <div className="flex items-start mt-4">

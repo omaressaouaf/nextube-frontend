@@ -71,7 +71,9 @@ const VideoSingle = ({ videoId }) => {
                   </div>
                 </div>
               </div>
-              {authUser?.id !== video.user.id && <SubscriptionButton userId={video.user.id} />}
+              {authUser && authUser?.id !== video.user.id && (
+                <SubscriptionButton userId={video.user.id} />
+              )}
             </div>
           </>
         )}

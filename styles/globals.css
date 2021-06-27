@@ -14,6 +14,15 @@
     @apply text-gray-700 bg-gray-300 focus:ring-gray-200;
   }
 }
+/* custom shadow */
+.next-btn-black-shadow {
+  box-shadow: -10px -5px 10px 5px #212121;
+}
+
+.next-btn-white-shadow {
+  box-shadow: -10px -5px 10px 5px #fff;
+}
+
 /* custom scroll */
 .has-cool-scrollbar::-webkit-scrollbar {
   width: 16px;
@@ -54,7 +63,7 @@
   bottom: 0;
   z-index: 9999;
   overflow: hidden;
-  background: #F3F4F6;
+  background: #f3f4f6;
 }
 
 #preloader:before {
@@ -62,7 +71,7 @@
   position: fixed;
   top: calc(50% - 30px);
   left: calc(50% - 30px);
-  border: 6px solid #F3F4F6;
+  border: 6px solid #f3f4f6;
   border-top-color: red;
   border-bottom-color: red;
   border-radius: 50%;
