@@ -10,7 +10,9 @@ const CommentForm = ({ formMode, setFormMode, comment, parentCommentId }) => {
   // redux
   const [authUser, loading] = useSelector(state => [
     state.authReducer.authUser,
-    state.uiReducer.loadings[formMode === "edit" ? `CommentItem${comment.id}` : `CommentForm${parentCommentId}`],
+    state.uiReducer.loadings[
+      formMode === "edit" ? `CommentItem${comment.id}` : `CommentForm${parentCommentId}`
+    ],
   ]);
   const dispatch = useDispatch();
 
@@ -43,7 +45,10 @@ const CommentForm = ({ formMode, setFormMode, comment, parentCommentId }) => {
           formMode === "reply" ? "max-w-4xl ml-auto" : "w-full"
         }`}
       >
-        <Avatar src={authUser?.avatar} className={`mr-3 mt-1 ${formMode === "reply" ? "w-8" : "w-10"}`} />
+        <Avatar
+          src={authUser?.avatar}
+          className={`mr-3 mt-1 ${formMode === "reply" ? "w-8" : "w-10"}`}
+        />
         <form className="w-full" onSubmit={handleSubmit}>
           <textarea
             value={content}
@@ -54,11 +59,16 @@ const CommentForm = ({ formMode, setFormMode, comment, parentCommentId }) => {
           ></textarea>
           <div className="flex mt-2 justify-end">
             {formMode !== "add" && (
-              <Button type="button" onClick={() => setFormMode("add")} className="btn-gray mr-2">
+              <Button
+                type="button"
+                onClick={() => setFormMode("add")}
+                variant="gray"
+                className="mr-2"
+              >
                 Cancel
               </Button>
             )}
-            <Button type="submit" disabled={!content.trim().length || loading} className="btn-blue">
+            <Button type="submit" disabled={!content.trim().length || loading} variant="blue">
               {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
               {
                 {

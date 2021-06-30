@@ -31,6 +31,15 @@ export const formatDateHour = date => {
   return dayjs(date).format("h:mm A");
 };
 
+export const formatVideoDuration = durationInSeconds => {
+  const date = new Date(durationInSeconds * 1000);
+  const timeStr = date.toTimeString().split(" ")[0]; //remove extra GM-00 string
+  if (timeStr[0] === "0" && timeStr[1] === "0") { //if video is under an hours stripe out 00:
+    return timeStr.slice(3, timeStr.length);
+  }
+  return timeStr;
+};
+
 export const fireConfirm = callbackfn => {
   swal
     .fire({
@@ -70,7 +79,7 @@ const toast = swal.mixin({
   timer: 3000,
   showClass: {
     popup: "animate__animated animate__slideInUp fast-animation",
-    icon : ''
+    icon: "",
   },
   hideClass: {
     popup: "animate__animated animate__fadeOut fast-animation",

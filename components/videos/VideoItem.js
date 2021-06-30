@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Avatar from "../base/Avatar";
 import PropTypes from "prop-types";
-import { formatDateAgo } from "../../global/helpers";
+import { formatDateAgo, formatVideoDuration } from "../../global/helpers";
 
 const VideoItem = ({ video }) => {
   return (
@@ -20,7 +20,7 @@ const VideoItem = ({ video }) => {
           />
           {video.duration && (
             <div className="absolute bottom-2 right-1 p-1 text-xs font-semibold bg-lightBlack text-gray-200 rounded-sm">
-              {video.duration.toFixed(2).replace(".", ":")}
+              {formatVideoDuration(video.duration)}
             </div>
           )}
         </a>

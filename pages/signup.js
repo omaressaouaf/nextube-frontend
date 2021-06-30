@@ -49,7 +49,7 @@ const signup = () => {
       >
         <div className="space-y-5">
           {serverError && (
-            <Alert className="bg-red-600" icon="fa fa-info-circle">
+            <Alert variant="red" icon="fa fa-info-circle">
               {serverError}
             </Alert>
           )}
@@ -98,7 +98,7 @@ const signup = () => {
           </div>
         </div>
         <div>
-          <Button type="submit" className="btn-red w-full" disabled={loading}>
+          <Button type="submit" variant="red" className="w-full" disabled={loading}>
             {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
             Register
           </Button>

@@ -31,7 +31,7 @@ const history = ({ historiesPerDay, serverError }) => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="col-span-2 order-2 md:order-1">
           {!historiesPerDayRedux.length && (
-            <Alert className="font-semibold">
+            <Alert variant="gray" className="font-semibold">
               No History For Now .
               <Link href="/">
                 <a className="ml-1 text-blue-500">Explore</a>

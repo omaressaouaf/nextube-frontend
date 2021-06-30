@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { useEffect } from "react";
 import { toggleSubscribe } from "../../store/actions/usersActions";
-import {  fireToast } from "../../global/helpers";
+import { fireToast } from "../../global/helpers";
 
 const SubscriptionButton = ({ userId }) => {
   // redux
@@ -24,7 +24,7 @@ const SubscriptionButton = ({ userId }) => {
     }
   }, [authUser]);
 
-  const handleToggleSubscribe =async () => {
+  const handleToggleSubscribe = async () => {
     if (!authUser) return fireToast("info", "Please Login First");
     await dispatch(toggleSubscribe(userId, authUserAlreadySubscribed));
     fireToast("success", `Subscription ${authUserAlreadySubscribed ? "removed" : "added"}`);
@@ -35,7 +35,8 @@ const SubscriptionButton = ({ userId }) => {
       <Button
         onClick={handleToggleSubscribe}
         disabled={loading}
-        className={`mb-2 flex items-center ${authUserAlreadySubscribed ? "btn-gray" : "btn-red"}`}
+        variant={authUserAlreadySubscribed ? "gray" : "red"}
+        className="mb-2 flex items-center"
       >
         {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
         {authUserAlreadySubscribed ? "Subscribed" : "Subscribe"}

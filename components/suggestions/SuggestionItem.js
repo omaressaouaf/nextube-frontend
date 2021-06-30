@@ -20,7 +20,7 @@ const SuggestionItem = ({ video }) => {
           />
           {video.duration && (
             <div className="absolute bottom-2 right-1 p-1 text-xs font-semibold bg-lightBlack text-gray-200 rounded-sm">
-              {video.duration.toFixed(2).replace(".", ":")}
+              {formatVideoDuration(video.duration)}
             </div>
           )}
         </a>

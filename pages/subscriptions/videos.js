@@ -27,7 +27,7 @@ const SubscriptionsVideosPage = ({ subscriptionsVideos, serverError }) => {
         </Link>
       </div>
       {!subscriptionsVideos.length && (
-        <Alert className="font-semibold">
+        <Alert variant="gray" className="font-semibold">
           No Subscriptions at the moment .
           <Link href="/">
             <a className="ml-1 text-blue-500">Explore</a>

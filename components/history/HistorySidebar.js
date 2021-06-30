@@ -56,7 +56,7 @@ const HistorySidebar = () => {
       </div>
       {historiesPerDay.length > 0 && (
         <div className="mt-10 px-3">
-          <Button onClick={handleDeleteAll} disabled={deleteLoading} className="btn-red">
+          <Button onClick={handleDeleteAll} disabled={deleteLoading} variant="red" >
             {deleteLoading ? (
               <i className="fa fa-spinner fa-spin mr-2"></i>
             ) : (

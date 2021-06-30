@@ -34,7 +34,7 @@ const UploadProgresses = () => {
             <h4>{progress.title}</h4>
             <ProgressBar percentage={progress.percentage} />
             {cancellationAllowed(progress) && (
-              <Button onClick={() => handleCancel(progress.source)} className="btn-red">
+              <Button onClick={() => handleCancel(progress.source)} variant="red">
                 cancel
               </Button>
             )}
