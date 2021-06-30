@@ -53,7 +53,7 @@ const signin = () => {
           </div>
           <div className="text-sm">
             <Link href="/signup">
-              <a className="font-medium text-indigo-600 hover:text-indigo-500">Don't have an account?</a>
+              <a className="font-medium text-blue-600 hover:text-blue-500">Don't have an account?</a>
             </Link>
           </div>
         </div>

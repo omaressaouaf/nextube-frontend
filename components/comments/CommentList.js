@@ -17,7 +17,7 @@ function CommentList({ videoId }) {
 
   useEffect(() => {
     dispatch(fetchComments(videoId));
-  }, []);
+  }, [videoId]);
 
   return (
     <>

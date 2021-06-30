@@ -38,6 +38,6 @@ export const handleServerError = (err, component) => dispatch => {
   if (expectedStatuses.includes(status)) {
     dispatch(setServerError(component, err.response.data.message));
   } else {
-    fireToast("error", "Unknown error. try again");
+    fireToast("error", "Unknown Error. Try again");
   }
 };

@@ -53,8 +53,8 @@ const Sidebar = () => {
             {/* Library */}
             <SidebarHeading title="Library" />
             <SidebarItem title="Subscriptions" pathname="/subscriptions" icon="fa fa-folder-plus" />
+            <SidebarItem title="History" pathname="/history" icon="fa fa-history" />
             <SidebarItem title="Watch Later" pathname="/er" icon="fa fa-clock" />
-            <SidebarItem title="Liked Videos" pathname="/er" icon="fa fa-thumbs-up" />
 
             {/* Subscriptions */}
             {authUser.subscriptions.length > 0 && (

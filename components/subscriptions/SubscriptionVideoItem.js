@@ -13,7 +13,7 @@ function SubscriptionVideoItem({ subscription }) {
       </div>
       {subscription.videos.map(video => {
         return (
-          <div key={video._id} className="max-w-4xl">
+          <div key={video._id} className="max-w-5xl">
             <VideoItemWide
               video={video}
               idField="_id"

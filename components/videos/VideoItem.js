@@ -5,12 +5,24 @@ import PropTypes from "prop-types";
 import { formatDateAgo } from "../../global/helpers";
 
 const VideoItem = ({ video }) => {
-
   return (
     <div className="video-preview mb-5" key={video.id}>
       <Link href={`/videos/${video.id}`}>
-        <a>
-          <Image placeholder="blur" blurDataURL={video.thumbnail} width={500} height={300} src={video.thumbnail} className="mb-1 hover:opacity-75 transition-opacity" alt="thumbnail" />
+        <a className="relative">
+          <Image
+            placeholder="blur"
+            blurDataURL={video.thumbnail}
+            width={500}
+            height={300}
+            src={video.thumbnail}
+            className="mb-1 hover:opacity-75 transition-opacity"
+            alt="thumbnail"
+          />
+          {video.duration && (
+            <div className="absolute bottom-2 right-1 p-1 text-xs font-semibold bg-lightBlack text-gray-200 rounded-sm">
+              {video.duration.toFixed(2).replace(".", ":")}
+            </div>
+          )}
         </a>
       </Link>
       <div className="flex items-start mt-4">
@@ -30,7 +42,9 @@ const VideoItem = ({ video }) => {
               </a>
             </Link>
           </div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">{video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}</div>
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            {video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}
+          </div>
         </div>
       </div>
     </div>

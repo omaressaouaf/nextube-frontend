@@ -1,5 +1,6 @@
 import "nprogress/nprogress.css";
 import "@fortawesome/fontawesome-free/css/all.css";
+import 'animate.css'
 import "../styles/globals.css";
 import "../global/bootstrap";
 import withStore from "../components/HOC/withStore";

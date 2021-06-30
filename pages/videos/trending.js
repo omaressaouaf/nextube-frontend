@@ -17,8 +17,8 @@ const trending = ({ videos, serverError }) => {
   }, []);
   return (
     <div className="mt-2">
-      <div className="flex items-center space-x-5 mb-8">
-        <div className="pl-7 pr-36 py-7 rounded bg-white hover:bg-gray-200 dark:bg-lighterBlack dark:hover:bg-black transition-all duration-200 cursor-pointer">
+      <div className="flex flex-wrap md:flex-nowrap items-center space-x-5 space-y-5 md:space-y-0  mb-8">
+        <div className="ml-5 md:ml-0 pl-7 pr-36 py-7 rounded bg-white hover:bg-gray-200 dark:bg-lighterBlack dark:hover:bg-black transition-all duration-200 cursor-pointer">
           <div className="">
             <i className="fa fa-music fa-2x text-yellow-500"></i>
             <p className="text-lg font-semibold text-gray-800 dark:text-gray-200 mt-4">Music</p>
@@ -50,7 +50,7 @@ const trending = ({ videos, serverError }) => {
       )}
       {videos.map(video => {
         return (
-          <div key={video.id} className="max-w-4xl mb-4">
+          <div key={video.id} className="max-w-5xl mb-4">
             <VideoItemWide video={video} idField="id" key={video.id} />
           </div>
         );

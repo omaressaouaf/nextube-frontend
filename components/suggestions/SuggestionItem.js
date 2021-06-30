@@ -7,7 +7,7 @@ const SuggestionItem = ({ video }) => {
   return (
     <div className="flex mb-2" key={video.id}>
       <Link href={`/videos/${video.id}`}>
-        <a className="flex mb-2">
+        <a className="flex mb-2 relative">
           <Image
             placeholder="blur"
             blurDataURL={video.thumbnail}
@@ -18,6 +18,11 @@ const SuggestionItem = ({ video }) => {
             className="mb-1 hover:opacity-75 transition-opacity"
             alt="thumbnail"
           />
+          {video.duration && (
+            <div className="absolute bottom-2 right-1 p-1 text-xs font-semibold bg-lightBlack text-gray-200 rounded-sm">
+              {video.duration.toFixed(2).replace(".", ":")}
+            </div>
+          )}
         </a>
       </Link>
       <div className="ml-2">

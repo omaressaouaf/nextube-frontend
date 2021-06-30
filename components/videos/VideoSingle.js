@@ -9,6 +9,7 @@ import ShowMore from "react-show-more";
 import PropTypes from "prop-types";
 import VideoSingleButtons from "./VideoSingleButtons";
 import SubscriptionButton from "../subscriptions/SubscriptionButton";
+import { addHistory } from "../../store/actions/historiesActions";
 
 const VideoSingle = ({ videoId }) => {
   // redux
@@ -19,10 +20,14 @@ const VideoSingle = ({ videoId }) => {
   ]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  useEffect(async () => {
     setLoading(true);
-    dispatch(fetchVideo(videoId)).then(() => setLoading(false));
-  }, [videoId]);
+    await dispatch(fetchVideo(videoId));
+    setLoading(false);
+    if (authUser) {
+      dispatch(addHistory(videoId));
+    }
+  }, [videoId , authUser?.id]);
 
   return (
     <div className="video-single mt-2">

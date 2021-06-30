@@ -51,71 +51,74 @@ const Topbar = () => {
             <a href="#" onClick={e => e.preventDefault()}>
               <ThemeSwitcher />
             </a>
-            <Link href="/videos/upload">
-              <a>
-                <i className="fa fa-upload  mr-8"></i>
-              </a>
-            </Link>
+
             {authUser ? (
-              <div className="relative">
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => setAccountDropdownOpen(true)}
-                    className="transition ease-out duration-100  max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none"
-                    id="user-menu-button"
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                  >
-                    <Avatar src={authUser.avatar} className="w-8" />
-                  </button>
-                </div>
-                {accountDropdownOpen && (
-                  <ClickAwayListener onClickAway={() => setAccountDropdownOpen(false)}>
-                    <div
-                      onClick={() => setAccountDropdownOpen(false)}
-                      className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white
-                    text-sm text-gray-700  dark:bg-darkGray dark:text-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="user-menu-button"
-                      tabIndex="-1"
+              <>
+                <Link href="/videos/upload">
+                  <a>
+                    <i className="fa fa-upload  mr-8"></i>
+                  </a>
+                </Link>
+                <div className="relative">
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => setAccountDropdownOpen(true)}
+                      className="transition ease-out duration-100  max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none"
+                      id="user-menu-button"
+                      aria-expanded="false"
+                      aria-haspopup="true"
                     >
-                      <a
-                        href="#"
-                        className="block px-4 py-2 "
-                        role="menuitem"
+                      <Avatar src={authUser.avatar} className="w-8" />
+                    </button>
+                  </div>
+                  {accountDropdownOpen && (
+                    <ClickAwayListener onClickAway={() => setAccountDropdownOpen(false)}>
+                      <div
+                        onClick={() => setAccountDropdownOpen(false)}
+                        className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white
+                    text-sm text-gray-700  dark:bg-darkGray dark:text-gray-200 ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        role="menu"
+                        aria-orientation="vertical"
+                        aria-labelledby="user-menu-button"
                         tabIndex="-1"
-                        id="user-menu-item-0"
                       >
-                        Your Channel
-                      </a>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 "
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-0"
+                        >
+                          Your Channel
+                        </a>
 
-                      <a
-                        href="#"
-                        className="block px-4 py-2 "
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-1"
-                      >
-                        Settings
-                      </a>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 "
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-1"
+                        >
+                          Settings
+                        </a>
 
-                      <hr className="my-2" />
-                      <a
-                        onClick={() => dispatch(logout())}
-                        href="#"
-                        className="block px-4 py-2 "
-                        role="menuitem"
-                        tabIndex="-1"
-                        id="user-menu-item-2"
-                      >
-                        Sign out
-                      </a>
-                    </div>
-                  </ClickAwayListener>
-                )}
-              </div>
+                        <hr className="my-2" />
+                        <a
+                          onClick={() => dispatch(logout())}
+                          href="#"
+                          className="block px-4 py-2 "
+                          role="menuitem"
+                          tabIndex="-1"
+                          id="user-menu-item-2"
+                        >
+                          Sign out
+                        </a>
+                      </div>
+                    </ClickAwayListener>
+                  )}
+                </div>
+              </>
             ) : (
               <>
                 <Link href="/signin">

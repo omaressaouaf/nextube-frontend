@@ -30,9 +30,16 @@ export const commentsActionTypes = {
   UPDATE_COMMENT: "UPDATE_COMMENT",
 };
 
-// users action types
+// users / subscriptions action types
 export const usersActionTypes = {
   SUBSCRIBE: "SUBSCRIBE",
   UNSUBSCRIBE: "UNSUBSCRIBE",
   SET_SUBSCRIPTIONS: "SET_SUBSCRIPTIONS",
+};
+
+// histories action types
+export const historiesActionTypes = {
+  SET_HISTORIES: "SET_HISTORIES",
+  ADD_HISTORY: "ADD_HISTORY",
+  DELETE_HISTORY: "DELETE_HISTORY",
 };
