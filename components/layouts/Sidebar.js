@@ -54,7 +54,7 @@ const Sidebar = () => {
             <SidebarHeading title="Library" />
             <SidebarItem title="Subscriptions" pathname="/subscriptions" icon="fa fa-folder-plus" />
             <SidebarItem title="History" pathname="/history" icon="fa fa-history" />
-            <SidebarItem title="Watch Later" pathname="/er" icon="fa fa-clock" />
+            <SidebarItem title="Watch Later" pathname="/watchlater" icon="fa fa-clock" />
 
             {/* Subscriptions */}
             {authUser.subscriptions.length > 0 && (
@@ -66,7 +66,7 @@ const Sidebar = () => {
                     <SidebarItem
                       key={subscribedTo.id}
                       title={subscribedTo.channelName}
-                      pathname="/reer"
+                      pathname={`/channels/${subscribedTo.channelName}`}
                       avatar={subscribedTo.avatar}
                     />
                   ))}

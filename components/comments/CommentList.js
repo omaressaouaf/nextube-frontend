@@ -1,14 +1,20 @@
-import { useEffect } from "react";
+import { forwardRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchComments } from "../../store/actions/commentsActions";
 import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
 import PropTypes from "prop-types";
 import ClipLoader from "react-spinners/ClipLoader";
+import FlipMove from "react-flip-move";
 
+const FlipCommentItem = forwardRef((props, ref) => (
+  <div ref={ref}>
+    <CommentItem {...props} />
+  </div>
+));
 function CommentList({ videoId }) {
   // redux
-  const [comments,authUser , loading] = useSelector(state => [
+  const [comments, authUser, loading] = useSelector(state => [
     state.commentsReducer.comments,
     state.authReducer.authUser,
     state.uiReducer.loadings.CommentList,
@@ -38,9 +44,13 @@ function CommentList({ videoId }) {
               No Comments for this video
             </h2>
           )}
-          {comments.map(comment => {
-            return !comment.parentComment && <CommentItem comment={comment} key={comment.id} />;
-          })}
+          <FlipMove enterAnimation="accordionVertical" leaveAnimation="accordionVertical">
+            {comments.map(comment => {
+              return (
+                !comment.parentComment && <FlipCommentItem comment={comment} key={comment.id} />
+              );
+            })}
+          </FlipMove>
         </>
       )}
     </>

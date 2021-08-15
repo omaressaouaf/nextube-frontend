@@ -31,7 +31,7 @@ const UploadProgresses = () => {
       >
         {uploadProgresses.map(progress => (
           <div className="mr-4 my-5" key={progress.identifier}>
-            <h4>{progress.title}</h4>
+            <h4 className="break-words">{progress.title}</h4>
             <ProgressBar percentage={progress.percentage} />
             {cancellationAllowed(progress) && (
               <Button onClick={() => handleCancel(progress.source)} variant="red">

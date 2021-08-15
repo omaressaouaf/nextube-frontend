@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Avatar from "../base/Avatar";
 import Link from "next/link";
 import SubscriptionButton from "./SubscriptionButton";
-import {  formatDateNormal, truncateString } from "../../global/helpers";
+import { formatDateNormal, truncateString } from "../../global/helpers";
 
 const SubscriptionItem = ({ subscription: { subscribedTo } }) => {
   return (
@@ -22,7 +22,7 @@ const SubscriptionItem = ({ subscription: { subscribedTo } }) => {
         </Link>
       </div>
       <div className="">
-        <Link href={`/channels/${subscribedTo.id}`}>
+        <Link href={`/channels/${subscribedTo.channelName}`}>
           <a className="flex mb-3">
             <div className="w-full text-black dark:text-gray-200 capitalize font-semibold">
               {subscribedTo.channelName}
@@ -32,7 +32,8 @@ const SubscriptionItem = ({ subscription: { subscribedTo } }) => {
         </Link>
         <div className="text-sm">
           <div className="text-gray-600 capitalize hover:text-black dark:text-gray-400 dark:hover:gray-200">
-            {subscribedTo.subscribersCount} subscribers &middot; Joined On {formatDateNormal(subscribedTo.createdAt)}
+            {subscribedTo.subscribersCount} subscribers &middot; Joined On{" "}
+            {formatDateNormal(subscribedTo.createdAt)}
           </div>
         </div>
         <div className="text-sm dark:text-gray-400 mt-1">

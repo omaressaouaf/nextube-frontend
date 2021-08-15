@@ -8,6 +8,7 @@ import { uploadVideo } from "../../store/actions/videosActions";
 import { useSelector, useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import { fireToast } from "../../global/helpers";
+import Select from "../base/Select";
 
 const VideoForm = () => {
   // redux
@@ -19,7 +20,7 @@ const VideoForm = () => {
     title: yup.string().required("Title is required"),
     tags: yup.string().required("Tags are required"),
     description: yup.string().required("Description is required"),
-    category: yup.string().oneOf(['music' , 'gaming' , 'sports']),
+    category: yup.string().oneOf(["music", "gaming", "sports" , '']),
   });
 
   // video file
@@ -32,8 +33,7 @@ const VideoForm = () => {
   };
 
   const handleSubmit = ({ title, tags, description, category }) => {
-    if (!fileIsValid()) return fireToast("error", "Choose a valid file");
-    console.log(category);
+    // if (!fileIsValid()) return fireToast("error", "Choose a valid file");
     const formData = new FormData();
     formData.append("title", title);
     formData.append("tags", tags);
@@ -116,30 +116,17 @@ const VideoForm = () => {
           <div className="grid grid-cols-3 gap-6">
             <div className="col-span-3 sm:col-span-2">
               <label className="block text-sm font-medium mb-2">Category</label>
-              <div className="mt-1  rounded-md">
-                <div className="relative inline-block w-full text-gray-700">
-                  <select
-                    {...registerInput("category")}
-                    className="w-full px-3 py-2 shadow-sm  border border-gray-300 placeholder-gray-500 text-sm text-gray-900 dark:bg-lightBlack dark:border-darkGray dark:text-gray-200 rounded-md focus:outline-none focus:ring-1"
-                  >
-                    <option value="" >
-                      None
-                    </option>
+              <Select
+                {...registerInput("category")}
+                options={
+                  <>
+                    <option value="">None</option>
                     <option value="music">Music</option>
                     <option value="gaming">Gaming</option>
                     <option value="sports">Sports</option>
-                  </select>
-                  <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                      <path
-                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                        clipRule="evenodd"
-                        fillRule="evenodd"
-                      ></path>
-                    </svg>
-                  </div>
-                </div>
-              </div>
+                  </>
+                }
+              />
             </div>
           </div>
           <div className="grid grid-cols-3 gap-6">
@@ -158,7 +145,7 @@ const VideoForm = () => {
           </div>
         </div>
         <div className="px-4 py-3 bg-gray-50 dark:bg-darkGray text-right sm:px-6">
-          <Button type="submit" variant="blue" >
+          <Button type="submit" variant="blue">
             Upload
           </Button>
         </div>

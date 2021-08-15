@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { toggleSubscribe } from "../../store/actions/usersActions";
 import { fireToast } from "../../global/helpers";
+import Skeleton from "react-loading-skeleton";
 
 const SubscriptionButton = ({ userId }) => {
   // redux
@@ -16,12 +17,14 @@ const SubscriptionButton = ({ userId }) => {
 
   const [subscribedToArray, setSubscribedToArray] = useState([]);
   const authUserAlreadySubscribed = subscribedToArray.includes(userId);
+  const [subscribedToArrayLoading, setSubscribedToArrayLoading] = useState(true);
   useEffect(() => {
     if (authUser) {
       setSubscribedToArray(
         authUser.subscriptions.map(subscription => subscription.subscribedTo.id)
       );
     }
+    setSubscribedToArrayLoading(false);
   }, [authUser]);
 
   const handleToggleSubscribe = async () => {
@@ -32,15 +35,19 @@ const SubscriptionButton = ({ userId }) => {
 
   return (
     <div className="ml-auto order-1 md:order-2">
-      <Button
-        onClick={handleToggleSubscribe}
-        disabled={loading}
-        variant={authUserAlreadySubscribed ? "gray" : "red"}
-        className="mb-2 flex items-center"
-      >
-        {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
-        {authUserAlreadySubscribed ? "Subscribed" : "Subscribe"}
-      </Button>
+      {subscribedToArrayLoading ? (
+        <Skeleton height={40} width={120} />
+      ) : (
+        <Button
+          onClick={handleToggleSubscribe}
+          disabled={loading}
+          variant={authUserAlreadySubscribed ? "gray" : "red"}
+          className="mb-2 flex items-center"
+        >
+          {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
+          {authUserAlreadySubscribed ? "Subscribed" : "Subscribe"}
+        </Button>
+      )}
     </div>
   );
 };

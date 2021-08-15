@@ -4,9 +4,9 @@ import SubscriptionItem from "../../components/subscriptions/SubscriptionItem";
 import Link from "next/link";
 import Alert from "../../components/base/Alert";
 import withAuth from "../../components/HOC/withAuth";
-import store from "../../store";
 import { useEffect } from "react";
 import { useState } from "react";
+import MetaData from "../../components/layouts/MetaData";
 
 const SubscriptionsPage = () => {
   // redux
@@ -19,6 +19,7 @@ const [subscriptions, setSubscriptions] = useState([]);
 
   return (
     <div className="mt-5">
+      <MetaData title="Subscriptions" />
       {!subscriptions.length && (
         <Alert variant="gray" className="font-semibold">
           No Subscriptions at the moment .

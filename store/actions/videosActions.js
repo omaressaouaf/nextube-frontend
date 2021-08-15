@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "next/router";
 import { fireToast } from "../../global/helpers";
 import { videosActionTypes } from "./types";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
@@ -85,6 +86,9 @@ export const fetchVideo = id => dispatch => {
         payload: video,
       });
     } catch (err) {
+      if(err.response?.status === 404) {
+        router.push('/404')
+      }
       dispatch(handleServerError(err, component));
     } finally {
       dispatch(clearLoading(component));
@@ -105,6 +109,9 @@ export const fetchSuggestions = videoId => async dispatch => {
       payload: data.suggestions,
     });
   } catch (err) {
+    if(err.response?.status === 404) {
+      router.push('/404')
+    }
     dispatch(handleServerError(err, component));
   } finally {
     dispatch(clearLoading(component));

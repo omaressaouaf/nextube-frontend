@@ -5,6 +5,7 @@ import CommentList from "../../components/comments/CommentList";
 import Divider from "../../components/base/Divider";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Video = () => {
   // redux
@@ -15,6 +16,9 @@ const Video = () => {
 
   const router = useRouter();
   const { id } = router.query;
+  useEffect(() => {
+
+  })
 
   return (
     <div className="video-page grid grid-cols-12 gap-6">

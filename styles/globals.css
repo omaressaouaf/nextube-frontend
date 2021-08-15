@@ -1,8 +1,7 @@
+/* Tailwind */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Tailwind components */
 @layer components {
   .btn-blue {
     @apply text-white bg-blue-600 focus:ring-blue-200;
@@ -12,6 +11,11 @@
   }
   .btn-gray {
     @apply text-gray-700 bg-gray-300 focus:ring-gray-200;
+  }
+}
+@layer utilities {
+  .overflow-y-overlay {
+    overflow-y: overlay;
   }
 }
 

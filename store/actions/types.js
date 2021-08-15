@@ -43,3 +43,10 @@ export const historiesActionTypes = {
   ADD_HISTORY: "ADD_HISTORY",
   DELETE_HISTORY: "DELETE_HISTORY",
 };
+
+// watchLaters action types
+export const watchLatersActionTypes = {
+  SET_WATCHLATERS: "SET_WATCHLATERS",
+  DELETE_WATCHLATER: "DELETE_WATCHLATER",
+  SET_IS_WATCH_LATER: "SET_IS_WATCH_LATER",
+};

@@ -18,21 +18,22 @@ const VideoItemWide = ({ video, idField, subscription }) => {
             className="mb-1 hover:opacity-75 transition-opacity"
             alt="thumbnail"
           />
-          {video.duration && (
-            <div className="absolute bottom-2 right-1 p-1 text-xs font-semibold bg-lightBlack text-gray-200 rounded-sm">
-              {formatVideoDuration(video.duration)}
-            </div>
-          )}
+
+          <div className="absolute bottom-2 right-1 p-1 text-xs font-semibold bg-lightBlack text-gray-200 rounded-sm">
+            {formatVideoDuration(video.duration)}
+          </div>
         </a>
       </Link>
       <div className="ml-2">
-        <Link href={`/videos/${video[idField]}`}>
-          <a className="flex mb-0">
-            <div className=" w-full text-black dark:text-gray-200 font-semibold">{video.title}</div>
-          </a>
-        </Link>
+        <div className="w-48 2xl:w-64">
+          <Link href={`/videos/${video[idField]}`}>
+            <a className="flex mb-0 text-black  dark:text-white break-words font-semibold w-full">
+              {video.title}
+            </a>
+          </Link>
+        </div>
         <div className="text-sm">
-          <Link href="#">
+          <Link href={`/channels/${subscription ? subscription.user.channelName : video.user.channelName}`}>
             <a className="text-gray-600 capitalize hover:text-black dark:text-gray-400 dark:hover:gray-200">
               {subscription ? subscription.user.channelName : video.user.channelName}
               <i className="fa fa-check-circle transition text-blue-500 ml-2 mr-1"></i>

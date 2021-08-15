@@ -10,6 +10,8 @@ import PropTypes from "prop-types";
 import VideoSingleButtons from "./VideoSingleButtons";
 import SubscriptionButton from "../subscriptions/SubscriptionButton";
 import { addHistory } from "../../store/actions/historiesActions";
+import { checkIfVideoIsWatchLater } from "../../store/actions/watchLatersActions";
+import Link from "next/link";
 
 const VideoSingle = ({ videoId }) => {
   // redux
@@ -23,11 +25,12 @@ const VideoSingle = ({ videoId }) => {
   useEffect(async () => {
     setLoading(true);
     await dispatch(fetchVideo(videoId));
-    setLoading(false);
     if (authUser) {
+      await dispatch(checkIfVideoIsWatchLater(videoId));
+      setLoading(false);
       dispatch(addHistory(videoId));
     }
-  }, [videoId , authUser?.id]);
+  }, [videoId, authUser]);
 
   return (
     <div className="video-single mt-2">
@@ -48,7 +51,7 @@ const VideoSingle = ({ videoId }) => {
             <div className="mb-5 lg:mb-0 text-sm text-gray-600 dark:text-gray-400">
               {video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}
             </div>
-            <div className="flex items-center justify-end gap-4 text-gray-500 dark:text-gray-400 uppercase text-sm">
+            <div className="flex items-center justify-end gap-4 text-gray-500 dark:text-gray-400  text-sm">
               <VideoSingleButtons video={video} />
             </div>
 
@@ -57,10 +60,12 @@ const VideoSingle = ({ videoId }) => {
               <div className="flex items-start order-2 md:order-1 w-full">
                 <Avatar src={video.user.avatar} className=" w-12 mr-3 mt-1" />
                 <div className="text-sm mt-1">
-                  <a href="#" className="font-semibold text-sm capitalize">
-                    {video.user.channelName}
-                    <i className="fa fa-check-circle text-blue-500 ml-2"></i>
-                  </a>
+                  <Link href={`/channels/${video.user.channelName}`}>
+                    <a className="font-semibold text-sm capitalize">
+                      {video.user.channelName}
+                      <i className="fa fa-check-circle text-blue-500 ml-2"></i>
+                    </a>
+                  </Link>
                   <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
                     {video.user.subscribersCount} subscribers
                   </p>

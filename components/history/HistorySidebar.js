@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAllHistories } from "../../store/actions/historiesActions";
 import Button from "../base/Button";
-import { useRouter } from "next/router";
-import { useState } from "react";
 import { fireConfirm } from "../../global/helpers";
+import useSearch from "../../hooks/useSearch";
 
 const HistorySidebar = () => {
   // redux
@@ -16,18 +15,13 @@ const HistorySidebar = () => {
   const handleDeleteAll = () => {
     fireConfirm(() => {
       dispatch(deleteAllHistories());
-    })
+    });
   };
 
-  const router = useRouter();
-  const [query, setQuery] = useState("");
-  const handleSearch = e => {
-    e.preventDefault();
-    router.push({ pathname: "/history", query: { query } });
-  };
+  const { handleSearch, query, setQuery } = useSearch("/history");
 
   return (
-    <div className="bg-gray-200 dark:bg-black px-10 py-6 -mt-20 -mr-16 w-full md:min-h-screen md:fixed">
+    <div className="bg-gray-200 dark:bg-black px-10 py-6 -mt-20 -mr-16 w-full xl:min-h-screen xl:fixed">
       <div className="relative text-gray-600">
         <form onSubmit={handleSearch}>
           <span className="absolute inset-y-0 left-0 flex items-center">
@@ -55,8 +49,8 @@ const HistorySidebar = () => {
         </form>
       </div>
       {historiesPerDay.length > 0 && (
-        <div className="mt-10 px-3">
-          <Button onClick={handleDeleteAll} disabled={deleteLoading} variant="red" >
+        <div className="mt-10 px-1">
+          <Button onClick={handleDeleteAll} disabled={deleteLoading} variant="red">
             {deleteLoading ? (
               <i className="fa fa-spinner fa-spin mr-2"></i>
             ) : (

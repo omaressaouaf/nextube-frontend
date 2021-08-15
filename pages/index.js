@@ -22,7 +22,7 @@ const Home = ({ videos, serverError }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2 mb-6">
         {!videos.length && (
-          <Alert variant="gray" className="font-semibold">
+          <Alert variant="gray" className="font-semibold w-128">
             No videos from the members .
             <Link href="/videos/upload">
               <a className="ml-1 text-blue-500">Upload now</a>

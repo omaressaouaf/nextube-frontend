@@ -7,7 +7,6 @@ import HomeKeywords from "../videos/HomeKeywords";
 import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
-
   const { darkMode } = useTheme();
 
   const router = useRouter();
@@ -23,7 +22,11 @@ const Layout = ({ children }) => {
           <Sidebar />
           <div className="overflow-hidden flex-grow">
             {router.pathname === "/" && <HomeKeywords />}
-            <div className="content container mx-auto px-10 py-5 min-h-screen dark:text-gray-200">
+            <div
+              className={`content min-h-screen dark:text-gray-200 ${
+                !router.pathname.startsWith("/channels") && "container mx-auto px-10 py-5"
+              }`}
+            >
               {children}
             </div>
           </div>

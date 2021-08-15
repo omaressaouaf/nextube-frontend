@@ -8,6 +8,7 @@ import { handleServerError } from "../../store/actions/uiActions";
 import Link from "next/link";
 import Alert from "../../components/base/Alert";
 import withAuth from "../../components/HOC/withAuth";
+import MetaData from "../../components/layouts/MetaData";
 
 const SubscriptionsVideosPage = ({ subscriptionsVideos, serverError }) => {
   // redux
@@ -21,14 +22,15 @@ const SubscriptionsVideosPage = ({ subscriptionsVideos, serverError }) => {
 
   return (
     <div className="relative mt-2">
+      <MetaData title="Subscriptions Latest Videos" />
       <div className="absolute right-0">
         <Link href="/subscriptions">
           <a className="uppercase font-semibold text-blue-600">Manage</a>
         </Link>
       </div>
       {!subscriptionsVideos.length && (
-        <Alert variant="gray" className="font-semibold">
-          No Subscriptions at the moment .
+        <Alert variant="gray" className="font-semibold w-128">
+          No Subscriptions videos at the moment .
           <Link href="/">
             <a className="ml-1 text-blue-500">Explore</a>
           </Link>

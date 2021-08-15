@@ -5,30 +5,32 @@ import { serializeServerError } from "../../global/helpers";
 import { handleServerError } from "../../store/actions/uiActions";
 import Link from "next/link";
 import Alert from "../../components/base/Alert";
+import Divider from "../../components/base/Divider";
 import VideoItemWide from "../../components/videos/VideoItemWide";
-import VideoCategories from "../../components/videos/VideoCategories";
+import { useRouter } from "next/router";
 import MetaData from "../../components/layouts/MetaData";
 
-const trending = ({ videos, serverError }) => {
+const search = ({ videos, serverError }) => {
   const dispatch = useDispatch();
 
+  const router = useRouter();
   useEffect(() => {
     if (serverError) {
-      dispatch(handleServerError(serverError, "trending"));
+      dispatch(handleServerError(serverError, "search"));
     }
   }, []);
   return (
     <div className="mt-2">
-      <MetaData title="Trending" />
-     <VideoCategories />
-
-      <p className="font-semibold mb-6">Trending videos</p>
-
+      <MetaData title="Search" />
+      <p className="font-semibold mb-6">
+        Search Results for <span className="text-blue-500">'{router.query.query}'</span>
+      </p>
+      <Divider />
       {!videos.length && (
         <Alert variant="gray" className="font-semibold">
-          No videos from the members .
+          No Results Found .Try different keywords or
           <Link href="/videos/upload">
-            <a className="ml-1 text-blue-500">Upload now</a>
+            <a className="ml-1 text-blue-500">Upload your own</a>
           </Link>
         </Alert>
       )}
@@ -47,10 +49,9 @@ export const getServerSideProps = async context => {
   let videos = [];
   let serverError = null;
   try {
-    const { category } = context.query;
-    const { data } = category
-      ? await axios.get("/videos/trending", { params: { category } })
-      : await axios.get("/videos/trending");
+    const { query } = context.query;
+    const { data } = await axios.get("/videos/search", { params: { query } });
+
     videos = data.videos;
   } catch (err) {
     serverError = serializeServerError(err);
@@ -63,4 +64,4 @@ export const getServerSideProps = async context => {
   };
 };
 
-export default trending;
+export default search;

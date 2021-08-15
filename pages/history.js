@@ -10,11 +10,15 @@ import { serializeServerError } from "../global/helpers";
 import withAuth from "../components/HOC/withAuth";
 import { setHistories } from "../store/actions/historiesActions";
 import { useRouter } from "next/router";
+import MetaData from "../components/layouts/MetaData";
+import { useState } from "react";
 
 const history = ({ historiesPerDay, serverError }) => {
   // redux
   const historiesPerDayRedux = useSelector(state => state.historiesReducer.historiesPerDay);
   const dispatch = useDispatch();
+
+  const [historiesPerDayToRender, setHitoriesPerDayToRender] = useState([...historiesPerDay]);
 
   const router = useRouter();
   useEffect(() => {
@@ -24,13 +28,25 @@ const history = ({ historiesPerDay, serverError }) => {
     dispatch(setHistories(historiesPerDay));
   }, [router.query]);
 
+  useEffect(() => {
+    setHitoriesPerDayToRender([...historiesPerDayRedux]);
+  }, [historiesPerDayRedux]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(setHistories([]));
+    };
+  }, []);
+
   return (
     <div className="mt-2">
+      <MetaData title="Watch History" />
+
       <p className="font-semibold mb-6">Watch History</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <div className="col-span-2 order-2 md:order-1">
-          {!historiesPerDayRedux.length && (
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        <div className="col-span-2 order-2 xl:order-1">
+          {!historiesPerDayToRender.length && (
             <Alert variant="gray" className="font-semibold">
               No History For Now .
               <Link href="/">
@@ -38,13 +54,13 @@ const history = ({ historiesPerDay, serverError }) => {
               </Link>
             </Alert>
           )}
-          {historiesPerDayRedux.map(historiesItem => {
+          {historiesPerDayToRender.map(historiesItem => {
             return (
               <HistoriesPerDayItem key={historiesItem.updatedAtDay} historiesItem={historiesItem} />
             );
           })}
         </div>
-        <div className="order-1 md:order-2">
+        <div className="order-1 xl:order-2">
           <HistorySidebar />
         </div>
       </div>

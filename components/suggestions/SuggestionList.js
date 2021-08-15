@@ -7,7 +7,10 @@ import SuggestionListSkeleton from "./SuggestionListSkeleton";
 
 const SuggestionList = ({ videoId }) => {
   // redux
-  const [suggestions, loading] = useSelector(state => [state.videosReducer.suggestions, state.uiReducer.loadings.SuggestionList]);
+  const [suggestions, loading] = useSelector(state => [
+    state.videosReducer.suggestions,
+    state.uiReducer.loadings.SuggestionList,
+  ]);
   const dispatch = useDispatch();
 
   useEffect(() => {

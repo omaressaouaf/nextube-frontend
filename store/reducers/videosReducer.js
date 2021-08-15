@@ -1,5 +1,5 @@
 import { validateFeelingsVariable } from "../../global/helpers";
-import { usersActionTypes, videosActionTypes } from "../actions/types";
+import { usersActionTypes, videosActionTypes, watchLatersActionTypes } from "../actions/types";
 
 const initialState = {
   uploadProgresses: {},
@@ -35,7 +35,12 @@ export default function videosReducer(state = initialState, { type, payload }) {
     case videosActionTypes.SET_VIDEO:
       return {
         ...state,
-        video: payload,
+        video: { ...payload, isWatchLater: false },
+      };
+    case watchLatersActionTypes.SET_IS_WATCH_LATER:
+      return {
+        ...state,
+        video: { ...state.video, isWatchLater: payload.isWatchLater },
       };
     case videosActionTypes.SET_SUGGESTIONS:
       return {
