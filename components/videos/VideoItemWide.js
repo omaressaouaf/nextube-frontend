@@ -34,7 +34,7 @@ const VideoItemWide = ({ video, idField, subscription }) => {
         </div>
         <div className="text-sm">
           <Link href={`/channels/${subscription ? subscription.user.channelName : video.user.channelName}`}>
-            <a className="text-gray-600 capitalize hover:text-black dark:text-gray-400 dark:hover:gray-200">
+            <a className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:gray-200">
               {subscription ? subscription.user.channelName : video.user.channelName}
               <i className="fa fa-check-circle transition text-blue-500 ml-2 mr-1"></i>
               &middot; {video.viewsCount} views &middot; {formatDateAgo(video.createdAt)}

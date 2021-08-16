@@ -24,7 +24,10 @@ const Layout = ({ children }) => {
             {router.pathname === "/" && <HomeKeywords />}
             <div
               className={`content min-h-screen dark:text-gray-200 ${
-                !router.pathname.startsWith("/channels") && "container mx-auto px-10 py-5"
+                !router.pathname.startsWith("/channels") &&
+                router.pathname !== "/settings" &&
+                router.pathname !== "/videos/studio" &&
+                "container mx-auto px-10 py-5"
               }`}
             >
               {children}

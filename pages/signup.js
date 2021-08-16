@@ -21,16 +21,18 @@ const signup = () => {
 
   // form validation
   const { registerInput, wrapHandleSubmit, errors } = useValidation({
-    channelName: yup.string().required("Channel name is required"),
-    email: yup.string().required("Email is required").email("Enter a valid email"),
-    password: yup
-      .string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters"),
-    passwordConfirm: yup
-      .string()
-      .required("Confirmation is required")
-      .oneOf([yup.ref("password")], "Password and Confirmation must match"),
+    schema: {
+      channelName: yup.string().required("Channel name is required"),
+      email: yup.string().required("Email is required").email("Enter a valid email"),
+      password: yup
+        .string()
+        .required("Password is required")
+        .min(8, "Password must be at least 8 characters"),
+      passwordConfirm: yup
+        .string()
+        .required("Confirmation is required")
+        .oneOf([yup.ref("password")], "Password and Confirmation must match"),
+    },
   });
 
   const router = useRouter();

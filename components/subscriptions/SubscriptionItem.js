@@ -24,7 +24,7 @@ const SubscriptionItem = ({ subscription: { subscribedTo } }) => {
       <div className="">
         <Link href={`/channels/${subscribedTo.channelName}`}>
           <a className="flex mb-3">
-            <div className="w-full text-black dark:text-gray-200 capitalize font-semibold">
+            <div className="w-full text-black dark:text-gray-200 font-semibold">
               {subscribedTo.channelName}
               <i className="fa fa-check-circle transition text-blue-500 ml-2 mr-1"></i>
             </div>

@@ -24,7 +24,7 @@ const SidebarItem = ({ title, pathname, avatar, icon }) => {
           ></i>
         )}
 
-        <span className="font-semibold  text-sm capitalize">{title}</span>
+        <span className="font-semibold text-sm">{title}</span>
       </a>
     </Link>
   );

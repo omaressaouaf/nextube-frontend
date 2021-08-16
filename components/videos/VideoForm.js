@@ -17,10 +17,12 @@ const VideoForm = () => {
 
   // form validation
   const { registerInput, wrapHandleSubmit, errors } = useValidation({
-    title: yup.string().required("Title is required"),
-    tags: yup.string().required("Tags are required"),
-    description: yup.string().required("Description is required"),
-    category: yup.string().oneOf(["music", "gaming", "sports" , '']),
+    schema: {
+      title: yup.string().required("Title is required"),
+      tags: yup.string().required("Tags are required"),
+      description: yup.string().required("Description is required"),
+      category: yup.string().oneOf(["music", "gaming", "sports", ""]),
+    },
   });
 
   // video file
@@ -33,7 +35,7 @@ const VideoForm = () => {
   };
 
   const handleSubmit = ({ title, tags, description, category }) => {
-    // if (!fileIsValid()) return fireToast("error", "Choose a valid file");
+    if (!fileIsValid()) return fireToast("error", "Choose a valid file");
     const formData = new FormData();
     formData.append("title", title);
     formData.append("tags", tags);

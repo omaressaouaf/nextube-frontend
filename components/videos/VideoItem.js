@@ -37,7 +37,7 @@ const VideoItem = ({ video }) => {
           </div>
           <div className="text-sm">
             <Link href={`/channels/${video.user.channelName}`}>
-              <a className="text-gray-600 capitalize hover:text-black dark:text-gray-400 dark:hover:text-white ">
+              <a className="text-gray-600 hover:text-black dark:text-gray-400 dark:hover:text-white ">
                 {video.user.channelName}
                 <i className="fa fa-check-circle ml-2"></i>
               </a>

@@ -5,6 +5,7 @@ import { formatDateNormal } from "../../global/helpers";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Button from "../base/Button";
 
 const ChannelTopBar = ({ user }) => {
   // redux
@@ -18,8 +19,8 @@ const ChannelTopBar = ({ user }) => {
     },
   ];
   if (authUser && authUser.id === user.id) {
-    tabsItems.push({ title: "Account", pathname: `/account` });
-    tabsItems.push({ title: "Password", pathname: `/password` });
+    tabsItems.push({ title: "Studio", pathname: `/videos/studio` });
+    tabsItems.push({ title: "Settings", pathname: `/settings` });
   }
 
   return (
@@ -29,7 +30,7 @@ const ChannelTopBar = ({ user }) => {
           <Avatar src={user.avatar} width={90} height={90} className="mr-2" />
 
           <div>
-            <div className="text-gray-800 dark:text-gray-200 font-semibold capitalize">
+            <div className="text-gray-800 dark:text-gray-200 font-semibold">
               {user.channelName}
               <i className="fa fa-check-circle transition text-blue-500 ml-2 mr-1"></i>
             </div>
@@ -40,7 +41,16 @@ const ChannelTopBar = ({ user }) => {
           </div>
         </div>
         <div className="flex items-start justify-center">
-          {authUser && authUser?.id !== user.id && <SubscriptionButton userId={user.id} />}
+          {authUser &&
+            (authUser?.id !== user.id ? (
+              <SubscriptionButton userId={user.id} />
+            ) : (
+              <Link href="/videos/studio">
+                <a>
+                  <Button variant="blue">Manage Videos</Button>
+                </a>
+              </Link>
+            ))}
         </div>
       </div>
       <div className="tabs flex items-center gap-8 px-12 pt-7">
@@ -48,7 +58,7 @@ const ChannelTopBar = ({ user }) => {
           return (
             <div
               key={item.pathname}
-              className={`py-2 px-4 dark:text-gray-50 uppercase text-sm font-semibold ${
+              className={`py-2 px-4 dark:text-gray-50 dark:border-gray-400 uppercase text-sm font-semibold ${
                 item.pathname == router.asPath
                   ? "border-b-2 border-gray-600 text-gray-800"
                   : "text-gray-600 hover:text-gray-800"

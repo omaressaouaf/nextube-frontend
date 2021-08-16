@@ -27,10 +27,10 @@ const VideoSingle = ({ videoId }) => {
     await dispatch(fetchVideo(videoId));
     if (authUser) {
       await dispatch(checkIfVideoIsWatchLater(videoId));
-      setLoading(false);
       dispatch(addHistory(videoId));
     }
-  }, [videoId, authUser]);
+    setLoading(false);
+  }, [videoId, authUser?.id]);
 
   return (
     <div className="video-single mt-2">
@@ -61,7 +61,7 @@ const VideoSingle = ({ videoId }) => {
                 <Avatar src={video.user.avatar} className=" w-12 mr-3 mt-1" />
                 <div className="text-sm mt-1">
                   <Link href={`/channels/${video.user.channelName}`}>
-                    <a className="font-semibold text-sm capitalize">
+                    <a className="font-semibold text-sm">
                       {video.user.channelName}
                       <i className="fa fa-check-circle text-blue-500 ml-2"></i>
                     </a>

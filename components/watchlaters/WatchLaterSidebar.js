@@ -23,9 +23,9 @@ const WatchLaterSidebar = () => {
   return (
     <div className="bg-gray-200 dark:bg-black px-10 py-6 -mt-20 -mr-16 w-full xl:min-h-screen xl:fixed">
       {watchLaters[0] && (
-        <div className="relative text-gray-600 w-72 2xl:w-full ">
+        <div className="relative text-gray-600 w-40 md:w-72 2xl:w-full ">
           <Link href={`/videos/${watchLaters[0].video.id}`}>
-            <a className="relative w-auto">
+            <a className="relative">
               <Image
                 placeholder="blur"
                 blurDataURL={watchLaters[0].video.thumbnail}
@@ -67,7 +67,7 @@ const WatchLaterSidebar = () => {
           </Button>
         </div>
       )}
- 
+
     </div>
   );
 };

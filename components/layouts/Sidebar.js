@@ -78,7 +78,7 @@ const Sidebar = () => {
 
         {/* More */}
         <SidebarHeading title="More" />
-        <SidebarItem title="Settings" pathname="/er" icon="fa fa-cog" />
+        {authUser && <SidebarItem title="Settings" pathname="/settings" icon="fa fa-cog" />}
         <SidebarItem title="Help" pathname="/er" icon="fa fa-question-circle" />
       </div>
 

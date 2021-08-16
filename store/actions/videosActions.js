@@ -87,7 +87,7 @@ export const fetchVideo = id => dispatch => {
       });
     } catch (err) {
       if(err.response?.status === 404) {
-        router.push('/404')
+        // router.push('/404')
       }
       dispatch(handleServerError(err, component));
     } finally {

@@ -85,16 +85,16 @@ const Topbar = () => {
                             Your Channel
                           </a>
                         </Link>
-
-                        <a
-                          href="#"
-                          className="block px-4 py-2 "
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="user-menu-item-1"
-                        >
-                          Settings
-                        </a>
+                        <Link href="/settings">
+                          <a
+                            className="block px-4 py-2 "
+                            role="menuitem"
+                            tabIndex="-1"
+                            id="user-menu-item-1"
+                          >
+                            Settings
+                          </a>
+                        </Link>
 
                         <hr className="my-2" />
                         <a

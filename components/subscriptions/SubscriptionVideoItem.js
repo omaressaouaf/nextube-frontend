@@ -7,7 +7,7 @@ function SubscriptionVideoItem({ subscription }) {
     <div className="subscription-video-item">
       <div className="flex items-center mb-5">
         <Avatar src={subscription.user.avatar} className="w-10 mr-2" />
-        <p className="text-gray-800 dark:text-gray-200 font-semibold capitalize">
+        <p className="text-gray-800 dark:text-gray-200 font-semibold">
           {subscription.user.channelName}
         </p>
       </div>

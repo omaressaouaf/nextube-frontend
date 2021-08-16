@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { handleServerError } from "../../store/actions/uiActions";
 import ChannelTopBar from "../../components/channels/ChannelTopBar";
+import MetaData from "../../components/layouts/MetaData";
 
 const Channel = ({ user, videos, serverError }) => {
   // redux
@@ -19,6 +20,7 @@ const Channel = ({ user, videos, serverError }) => {
 
   return (
     <>
+      <MetaData title={user.channelName} />
       <ChannelTopBar user={user} />
       <div className="container mx-auto px-10 py-5">
         <p className="font-semibold mb-6">Uploads</p>
