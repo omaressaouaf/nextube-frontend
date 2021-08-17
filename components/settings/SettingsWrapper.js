@@ -1,3 +1,4 @@
+import PasswordForm from "./PasswordForm";
 import ProfileForm from "./ProfileForm";
 
 const SettingsForm = () => {
@@ -23,7 +24,7 @@ const SettingsForm = () => {
             Make sure you put a strong password for security reasons
           </p>
         </div>
-
+        <PasswordForm />
       </div>
     </div>
   );
