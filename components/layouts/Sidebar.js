@@ -11,8 +11,8 @@ const Sidebar = () => {
 
   // Subscriptions
   const [showMoreSubscriptions, setShowMoreSubscriptions] = useState(false);
-  const shownSubscriptionsNumber = showMoreSubscriptions ? authUser.subscriptions.length : 1;
-  const hiddenSubscriptionsNumber = authUser?.subscriptions.length - shownSubscriptionsNumber;
+  const shownSubscriptionsNumber = showMoreSubscriptions ? authUser?.subscriptions?.length : 1;
+  const hiddenSubscriptionsNumber = authUser?.subscriptions?.length - shownSubscriptionsNumber;
 
   const renderShowMoreLessSubscriptionsButtons = () => {
     return (

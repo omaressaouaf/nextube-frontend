@@ -25,7 +25,7 @@ const VideoItem = ({ video }) => {
         </a>
       </Link>
       <div className="flex items-start mt-4">
-        <Avatar className="w-7 mr-3 mt-1" src={video.user.avatar} />
+        <Avatar src={video.user.avatar} size={38} className="mr-3 mt-1"  />
 
         <div>
           <div className="mb-2 w-48 2xl:w-64">

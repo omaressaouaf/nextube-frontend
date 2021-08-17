@@ -56,12 +56,12 @@ const Topbar = () => {
                     <button
                       type="button"
                       onClick={() => setAccountDropdownOpen(true)}
-                      className="transition ease-out duration-100  max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none"
+                      className="transition ease-out duration-100  max-w-xs rounded-full flex items-center text-sm focus:outline-none"
                       id="user-menu-button"
                       aria-expanded="false"
                       aria-haspopup="true"
                     >
-                      <Avatar src={authUser.avatar} className="w-8" />
+                      <Avatar src={authUser.avatar} size={40} />
                     </button>
                   </div>
                   {accountDropdownOpen && (

@@ -1,15 +1,18 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Avatar from "../../components/base/Avatar";
 import SubscriptionButton from "../../components/subscriptions/SubscriptionButton";
-import { formatDateNormal } from "../../global/helpers";
+import { fireToast, formatDateNormal } from "../../global/helpers";
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Button from "../base/Button";
+import { updateAvatar } from "../../store/actions/settingsActions";
+import { useState } from "react";
 
 const ChannelTopBar = ({ user }) => {
   // redux
   const authUser = useSelector(state => state.authReducer.authUser);
+  const dispatch = useDispatch();
 
   const router = useRouter();
   const tabsItems = [
@@ -24,11 +27,45 @@ const ChannelTopBar = ({ user }) => {
     tabsItems.push({ title: "Settings", pathname: `/settings`, route: "/settings" });
   }
 
+  const [userAvatar, setUserAvatar] = useState(user.avatar);
+  const avatarIsValid = file => {
+    return file && (file.type == "image/jpeg" || file.type == "image/png");
+  };
+
+  const handleAvatarChange = e => {
+    const selectedFile = e.target.files[0];
+    if (!avatarIsValid(selectedFile)) return fireToast("error", "Avatar must be jpg or png");
+
+    const formData = new FormData();
+    formData.append("avatar", selectedFile);
+    dispatch(updateAvatar(formData))
+      .then(newAvatar => setUserAvatar(newAvatar))
+      .catch(() => {});
+    e.target.value = "";
+  };
   return (
     <div className="channel-topbar mb-8 min-w-full shadow bg-white dark:bg-lighterBlack">
       <div className="flex flex-col pt-10 px-12 space-y-4 md:space-y-0 md:flex-row items-end md:items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Avatar src={user.avatar} width={90} height={90} className="mr-2" />
+        <div className=" flex items-center gap-2">
+          <div className="group relative">
+            <Avatar src={userAvatar} size={120} className="mr-2" />
+            {authUser && authUser.id === user.id && (
+              <>
+                <label
+                  htmlFor="file-avatar"
+                  className="cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-200 absolute bottom-2 right-0 bg-red-600 text-white p-2 flex items-center justify-center rounded-full"
+                >
+                  <i className="fa fa-pencil-alt"></i>
+                </label>
+                <input
+                  onChange={handleAvatarChange}
+                  className="hidden"
+                  id="file-avatar"
+                  type="file"
+                />
+              </>
+            )}
+          </div>
 
           <div>
             <div className="text-gray-800 dark:text-gray-200 font-semibold">
@@ -48,7 +85,9 @@ const ChannelTopBar = ({ user }) => {
             ) : (
               <Link href="/videos/studio">
                 <a>
-                  <Button variant="blue"><i className="fa fa-sliders-h mr-2"></i> Manage Videos</Button>
+                  <Button variant="blue">
+                    <i className="fa fa-sliders-h mr-2"></i> Manage Videos
+                  </Button>
                 </a>
               </Link>
             ))}

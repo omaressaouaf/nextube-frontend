@@ -26,7 +26,7 @@ module.exports = {
         80: "20rem",
       },
       maxHeight: {
-        192 : "48rem"
+        192: "48rem",
       },
       top: {
         17: "5rem",
@@ -46,6 +46,7 @@ module.exports = {
       overflow: ["hover"],
       opacity: ["disabled"],
       cursor: ["disabled"],
+      display: ["group-hover"],
     },
   },
   plugins: [],

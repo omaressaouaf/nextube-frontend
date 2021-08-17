@@ -1,4 +1,5 @@
 import axios from "axios";
+import nProgress from "nprogress";
 import { fireToast } from "../../global/helpers";
 import { setAuthData } from "./authActions";
 import { clearLoading, clearServerErrors, handleServerError, setLoading } from "./uiActions";
@@ -37,3 +38,26 @@ export const updatePassword =
       }
     });
   };
+
+export const updateAvatar = formData => dispatch => {
+  return new Promise(async (resolve, reject) => {
+    const component = "ChannelTopBar";
+    try {
+      nProgress.start();
+      const { data } = await axios.put("/settings/avatar", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data; charset=utf-8;",
+        },
+      });
+
+      dispatch(setAuthData(data));
+      fireToast("success", "Avatar Updated successfully");
+      resolve(data.user.avatar);
+    } catch (err) {
+      dispatch(handleServerError(err, component));
+      reject();
+    } finally {
+      nProgress.done();
+    }
+  });
+};

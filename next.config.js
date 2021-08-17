@@ -1,5 +1,5 @@
 module.exports = {
   images: {
-    domains: ["ytexpert.net" , 'localhost'],
+    domains: ["upload.wikimedia.org" , "ytexpert.net" , 'localhost'],
   },
 };

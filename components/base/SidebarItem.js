@@ -15,10 +15,10 @@ const SidebarItem = ({ title, pathname, avatar, icon }) => {
             : "hover:bg-gray-100 dark:hover:bg-darkGray"
         }`}
       >
-        {avatar && <Avatar className="w-7 mr-6" src={avatar} />}
+        {avatar && <Avatar src={avatar} size={37} className="mr-4" />}
         {icon && (
           <i
-            className={`fa-lg fa-fw  mr-6 ${icon} ${
+            className={`fa-lg fa-fw mr-6 ${icon} ${
               router.pathname == pathname ? "text-red-600 dark:text-gray-200" : "text-gray-600"
             }`}
           ></i>
