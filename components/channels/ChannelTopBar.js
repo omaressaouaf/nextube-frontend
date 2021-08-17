@@ -16,11 +16,12 @@ const ChannelTopBar = ({ user }) => {
     {
       title: "Home",
       pathname: `/channels/${user.channelName}`,
+      route: "/channels/[channelName]",
     },
   ];
   if (authUser && authUser.id === user.id) {
-    tabsItems.push({ title: "Studio", pathname: `/videos/studio` });
-    tabsItems.push({ title: "Settings", pathname: `/settings` });
+    tabsItems.push({ title: "Studio", pathname: `/videos/studio`, route: "/studio" });
+    tabsItems.push({ title: "Settings", pathname: `/settings`, route: "/settings" });
   }
 
   return (
@@ -47,7 +48,7 @@ const ChannelTopBar = ({ user }) => {
             ) : (
               <Link href="/videos/studio">
                 <a>
-                  <Button variant="blue">Manage Videos</Button>
+                  <Button variant="blue"><i className="fa fa-sliders-h mr-2"></i> Manage Videos</Button>
                 </a>
               </Link>
             ))}
@@ -59,7 +60,7 @@ const ChannelTopBar = ({ user }) => {
             <div
               key={item.pathname}
               className={`py-2 px-4 dark:text-gray-50 dark:border-gray-400 uppercase text-sm font-semibold ${
-                item.pathname == router.asPath
+                item.pathname === router.asPath || item.route === router.route
                   ? "border-b-2 border-gray-600 text-gray-800"
                   : "text-gray-600 hover:text-gray-800"
               }`}

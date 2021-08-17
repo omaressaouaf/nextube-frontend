@@ -27,7 +27,7 @@ function CommentList({ videoId }) {
 
   return (
     <>
-      <p className="text-gray-800 dark:text-gray-200">10 Comments</p>
+      <p className="text-gray-800 dark:text-gray-200">{comments.length} Comments</p>
       {authUser && (
         <div className="comments-form">
           <CommentForm formMode="add" />

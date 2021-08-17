@@ -34,9 +34,11 @@ const VideoSingleButtons = ({ video }) => {
   };
 
   const feltByAuthUser = feelings => {
-    validateFeelingsVariable(feelings);
-    for (const userId of video[feelings]) {
-      if (userId === authUser?.id) return true;
+    if (video[feelings]?.length) {
+      validateFeelingsVariable(feelings);
+      for (const userId of video[feelings]) {
+        if (userId === authUser?.id) return true;
+      }
     }
     return false;
   };
@@ -53,13 +55,13 @@ const VideoSingleButtons = ({ video }) => {
             onClick={handleToggleLike}
             className={`${feltByAuthUser("likes") && "text-blue-500"} focus:outline-none`}
           >
-            <i className="fa fa-thumbs-up fa-lg"></i> {video.likes.length}
+            <i className="fa fa-thumbs-up fa-lg"></i> {video?.likes?.length}
           </button>
           <button
             onClick={handleToggleDislike}
             className={`${feltByAuthUser("dislikes") && "text-blue-500"} focus:outline-none`}
           >
-            <i className="fa fa-thumbs-down fa-lg"></i> {video.dislikes.length}
+            <i className="fa fa-thumbs-down fa-lg"></i> {video?.dislikes?.length}
           </button>
           <button
             onClick={handleToggleWatchLater}
@@ -74,23 +76,23 @@ const VideoSingleButtons = ({ video }) => {
       <button onClick={() => setShareModalOpen(true)} className="focus:outline-none">
         <i className="fa fa-share fa-lg"></i> Share
       </button>
-        <Modal
-          title="Share on Social Media"
-          setModalOpen={setShareModalOpen}
-          modalOpen={shareModalOpen}
-        >
-          <div className="flex align-center justify-around py-10">
-            <FacebookShareButton url={sharedUrl}>
-              <FacebookIcon size={36} />
-            </FacebookShareButton>
-            <WhatsappShareButton url={sharedUrl}>
-              <WhatsappIcon size={36} />
-            </WhatsappShareButton>
-            <TwitterShareButton url={sharedUrl}>
-              <TwitterIcon size={36} />
-            </TwitterShareButton>
-          </div>
-        </Modal>
+      <Modal
+        title="Share on Social Media"
+        setModalOpen={setShareModalOpen}
+        modalOpen={shareModalOpen}
+      >
+        <div className="flex align-center justify-around py-10">
+          <FacebookShareButton url={sharedUrl}>
+            <FacebookIcon size={36} />
+          </FacebookShareButton>
+          <WhatsappShareButton url={sharedUrl}>
+            <WhatsappIcon size={36} />
+          </WhatsappShareButton>
+          <TwitterShareButton url={sharedUrl}>
+            <TwitterIcon size={36} />
+          </TwitterShareButton>
+        </div>
+      </Modal>
     </>
   );
 };

@@ -87,7 +87,7 @@ export const fetchVideo = id => dispatch => {
       });
     } catch (err) {
       if(err.response?.status === 404) {
-        // router.push('/404')
+        router.push('/404')
       }
       dispatch(handleServerError(err, component));
     } finally {
@@ -131,7 +131,6 @@ export const toggleLike = videoId => async (dispatch, getState) => {
     await axios.put(`/videos/${videoId}/togglelike`);
   } catch (err) {
     // README : don't handle errors here
-    console.log('hiii')
   }
 };
 

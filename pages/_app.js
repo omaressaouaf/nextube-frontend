@@ -1,6 +1,6 @@
 import "nprogress/nprogress.css";
 import "@fortawesome/fontawesome-free/css/all.css";
-import 'animate.css'
+import "animate.css";
 import "../styles/globals.css";
 import "../global/bootstrap";
 import withStore from "../components/HOC/withStore";
@@ -36,6 +36,7 @@ MyApp.getInitialProps = async appContext => {
   const { req, res } = appContext.ctx;
   let authData = {};
 
+
   /* refresh token if :
    1. when page reloads
    2. when navigating to a page that has getServerSideProps and the axios auth header is undefined
@@ -46,7 +47,7 @@ MyApp.getInitialProps = async appContext => {
     /* on the first refresh delete axios auth headers so we won't have Bearer undefined
     README : server memory glitch : due to the server keeping the auth headers even after page refresh the auth header will be something like Bearer undefined ) */
 
-    if (!req.url.startsWith("/_next/data")) {
+    if (!req?.url.startsWith("/_next/data")) {
       delete axios.defaults.headers.common["Authorization"];
       delete axios.defaults.headers.common["Authorization-End-Date"];
     }
@@ -65,13 +66,13 @@ MyApp.getInitialProps = async appContext => {
 
         /* forward the cookie sent by express from next js server to the client */
         res.setHeader("Set-Cookie", apiRes.headers["set-cookie"] ?? "");
-
         /* set axios default in the server because the axios instance header in the server is not the same as client(different memories) */
         axios.defaults.headers.common["Authorization"] = `Bearer ${authData.accessToken}`;
         axios.defaults.headers.common["Authorization-End-Date"] = authData.accessTokenEndDate;
       } catch (err) {}
     }
   }
+
   return { ...appProps, authData };
 };
 

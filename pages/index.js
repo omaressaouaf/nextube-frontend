@@ -47,6 +47,7 @@ export const getServerSideProps = async context => {
     serverError = serializeServerError(err);
   }
   return {
+
     props: {
       videos,
       serverError,

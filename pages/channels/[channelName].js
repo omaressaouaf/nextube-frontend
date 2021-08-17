@@ -41,10 +41,18 @@ const Channel = ({ user, videos, serverError }) => {
 
 export const getServerSideProps = async context => {
   let serverError = null;
+
   try {
     const { data } = await axios.get(`/channels/${context.params.channelName}`);
     var { user, videos } = data;
   } catch (err) {
+    if (err.response?.status === 404) {
+      return {
+        redirect: {
+          destination: "/404",
+        },
+      };
+    }
     serverError = serializeServerError(err);
   }
   return {
