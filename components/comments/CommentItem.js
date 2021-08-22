@@ -89,7 +89,11 @@ const CommentItem = ({ comment }) => {
       ) : (
         <div>
           <div className="flex items-start mt-6 w-full">
-            <Avatar className={`${comment.parentComment ? "w-7 mt-0" : "w-10 mt-1"} mr-3`} />
+            <Avatar
+              src={comment.user.avatar}
+              size={comment.parentComment ? 20 : 30}
+              className={`${comment.parentComment ? "mt-0" : "mt-1"} mr-3`}
+            />
             <div className="flex-grow text-sm">
               <p className="font-semibold mb-1 capitalize">
                 {comment.user.channelName}{" "}

@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Button from "../base/Button";
 import { updateAvatar } from "../../store/actions/settingsActions";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const ChannelTopBar = ({ user }) => {
   // redux
@@ -28,6 +29,9 @@ const ChannelTopBar = ({ user }) => {
   }
 
   const [userAvatar, setUserAvatar] = useState(user.avatar);
+  useEffect(() => {
+    setUserAvatar(user.avatar);
+  }, [user]);
   const avatarIsValid = file => {
     return file && (file.type == "image/jpeg" || file.type == "image/png");
   };
@@ -53,7 +57,7 @@ const ChannelTopBar = ({ user }) => {
               <>
                 <label
                   htmlFor="file-avatar"
-                  className="cursor-pointer opacity-0 group-hover:opacity-100 transition-all duration-200 absolute bottom-2 right-0 bg-red-600 text-white p-2 flex items-center justify-center rounded-full"
+                  className="cursor-pointer absolute bottom-2 right-0 bg-red-600 text-white p-2 flex items-center justify-center rounded-full"
                 >
                   <i className="fa fa-pencil-alt"></i>
                 </label>

@@ -47,7 +47,8 @@ const CommentForm = ({ formMode, setFormMode, comment, parentCommentId }) => {
       >
         <Avatar
           src={authUser?.avatar}
-          className={`mr-3 mt-1 ${formMode === "reply" ? "w-8" : "w-10"}`}
+          className="mr-3 mt-1"
+          size={formMode === "reply" ? 20 : 35}
         />
         <form className="w-full" onSubmit={handleSubmit}>
           <textarea

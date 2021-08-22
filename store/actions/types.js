@@ -19,6 +19,8 @@ export const videosActionTypes = {
   SET_VIDEO: "SET_VIDEO",
   SET_SUGGESTIONS: "SET_SUGGESTIONS",
   TOGGLE_FEELING: "TOGGLE_FEELING",
+  DELETE_VIDEO: "DELETE_VIDEO",
+  UPDATE_VIDEO: "UPDATE_VIDEO",
 };
 
 // comments action types

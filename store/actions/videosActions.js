@@ -1,5 +1,6 @@
 import axios from "axios";
 import router from "next/router";
+import nProgress from "nprogress";
 import { fireToast } from "../../global/helpers";
 import { videosActionTypes } from "./types";
 import { clearLoading, handleServerError, setLoading } from "./uiActions";
@@ -86,8 +87,8 @@ export const fetchVideo = id => dispatch => {
         payload: video,
       });
     } catch (err) {
-      if(err.response?.status === 404) {
-        router.push('/404')
+      if (err.response?.status === 404) {
+        router.push("/404");
       }
       dispatch(handleServerError(err, component));
     } finally {
@@ -109,8 +110,8 @@ export const fetchSuggestions = videoId => async dispatch => {
       payload: data.suggestions,
     });
   } catch (err) {
-    if(err.response?.status === 404) {
-      router.push('/404')
+    if (err.response?.status === 404) {
+      router.push("/404");
     }
     dispatch(handleServerError(err, component));
   } finally {
@@ -147,5 +148,36 @@ export const toggleDislike = videoId => async (dispatch, getState) => {
     await axios.put(`/videos/${videoId}/toggledislike`);
   } catch (err) {
     // README : don't handle errors here
+  }
+};
+
+export const fetchStudioVideos = () => async dispatch => {
+  const component = "VideosTable";
+  try {
+    dispatch(setLoading(component));
+
+    const { data } = await axios.get(`/videos/studio`);
+    dispatch(setVideos(data.videos));
+  } catch (err) {
+    dispatch(handleServerError(err, component));
+  } finally {
+    dispatch(clearLoading(component));
+  }
+};
+
+export const deleteVideo = videoId => async dispatch => {
+  const component = `VideosTable${videoId}`;
+  try {
+    nProgress.start();
+    await axios.delete(`/videos/${videoId}`);
+
+    dispatch({
+      type: videosActionTypes.DELETE_VIDEO,
+      payload: videoId,
+    });
+  } catch (err) {
+    dispatch(handleServerError(err, component));
+  } finally {
+    nProgress.done();
   }
 };

@@ -9,14 +9,24 @@ import { useSelector, useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import { fireToast } from "../../global/helpers";
 import Select from "../base/Select";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
 
-const VideoForm = () => {
+const VideoForm = ({ editedVideo }) => {
   // redux
   const dispatch = useDispatch();
   const serverError = useSelector(state => state.uiReducer.serverErrors.VideoForm);
 
   // form validation
-  const { registerInput, wrapHandleSubmit, errors } = useValidation({
+  useEffect(() => {
+    if (editedVideo) {
+      setValue("title", editedVideo.title);
+      setValue("tags", editedVideo.tags);
+      setValue("description", editedVideo.description);
+      setValue("category", editedVideo.category);
+    }
+  }, [editedVideo]);
+  const { registerInput, wrapHandleSubmit, errors, setValue } = useValidation({
     schema: {
       title: yup.string().required("Title is required"),
       tags: yup.string().required("Tags are required"),
@@ -57,36 +67,38 @@ const VideoForm = () => {
               {serverError}
             </Alert>
           )}
-
-          <div className="grid grid-cols-6 gap-6 text-gray-700 dark:text-gray-200">
-            <div className="col-span-6">
-              <label className="block text-sm font-medium mb-2">Video File</label>
-              <Dropzone onDrop={handleFileDrop}>
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <div className="mt-1 m-auto px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                        <div className="space-y-1">
-                          <div className="text-center">
-                            <i className="fa fa-photo-video fa-2x mx-auto h-12 w-12 text-gray-400"></i>
-                            <div className="text-sm text-gray-600 dark:text-gray-400">
-                              <p>
-                                <span className="text-blue-600">Choose a file</span> or drag and
-                                drop
-                              </p>
+          {!editedVideo && (
+            <div className="grid grid-cols-6 gap-6 text-gray-700 dark:text-gray-200">
+              <div className="col-span-6">
+                <label className="block text-sm font-medium mb-2">Video File</label>
+                <Dropzone onDrop={handleFileDrop}>
+                  {({ getRootProps, getInputProps }) => (
+                    <section>
+                      <div {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <div className="mt-1 m-auto px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                          <div className="space-y-1">
+                            <div className="text-center">
+                              <i className="fa fa-photo-video fa-2x mx-auto h-12 w-12 text-gray-400"></i>
+                              <div className="text-sm text-gray-600 dark:text-gray-400">
+                                <p>
+                                  <span className="text-blue-600">Choose a file</span> or drag and
+                                  drop
+                                </p>
+                              </div>
+                              <p className="text-xs text-gray-500">MP4 up to 10MB</p>
                             </div>
-                            <p className="text-xs text-gray-500">MP4 up to 10MB</p>
+                            {file && <p className="mt-3 text-sm text-center">{file.name}</p>}
                           </div>
-                          {file && <p className="mt-3 text-sm text-center">{file.name}</p>}
                         </div>
                       </div>
-                    </div>
-                  </section>
-                )}
-              </Dropzone>
+                    </section>
+                  )}
+                </Dropzone>
+              </div>
             </div>
-          </div>
+          )}
+
           <div className="grid grid-cols-3 gap-6">
             <div className="col-span-3 sm:col-span-2">
               <label className="block text-sm font-medium mb-2">Title</label>
@@ -154,6 +166,10 @@ const VideoForm = () => {
       </div>
     </form>
   );
+};
+
+VideoForm.propTypes = {
+  editedVideo: PropTypes.object,
 };
 
 export default VideoForm;

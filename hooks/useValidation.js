@@ -5,7 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 export default function useValidation({ schema, defaultValues }) {
   const validationSchema = yup.object().shape(schema);
 
-  const { register, handleSubmit, formState, reset } = useForm({
+  const { register, handleSubmit, formState, reset, setValue } = useForm({
     resolver: yupResolver(validationSchema),
     defaultValues,
   });
@@ -15,5 +15,6 @@ export default function useValidation({ schema, defaultValues }) {
     wrapHandleSubmit: handleSubmit,
     errors: formState.errors,
     reset,
+    setValue,
   };
 }

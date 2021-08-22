@@ -58,7 +58,7 @@ const VideoSingle = ({ videoId }) => {
             <Divider />
             <div className="video-description flex items-start flex-wrap md:flex-nowrap  justify-between">
               <div className="flex items-start order-2 md:order-1 w-full">
-                <Avatar src={video.user.avatar} className=" w-12 mr-3 mt-1" />
+                <Avatar src={video.user.avatar} size={50} className="mr-3 mt-1" />
                 <div className="text-sm mt-1">
                   <Link href={`/channels/${video.user.channelName}`}>
                     <a className="font-semibold text-sm">

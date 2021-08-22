@@ -5,7 +5,10 @@ const Avatar = ({ className = "", src, size = 50, ...restProps }) => {
   return (
     <div className={className}>
       <Image
-        src={src}
+        src={
+          src ||
+          "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+        }
         alt="avatar"
         className="rounded-full object-cover"
         layout="fixed"

@@ -1,6 +1,6 @@
 import withAuth from "../../components/HOC/withAuth";
 import UploadProgresses from "../../components/videos/UploadProgresses";
-import VideoForm from "../../components/videos/VideoForm";
+import UploadVideoForm from "../../components/videos/VideoForm";
 import MetaData from "../../components/layouts/MetaData";
 
 const upload = () => {
@@ -16,7 +16,7 @@ const upload = () => {
           </div>
         </div>
         <div className="mt-5 md:mt-0 md:col-span-2">
-          <VideoForm />
+          <UploadVideoForm />
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ const settings = () => {
   return (
     <>
       <MetaData title="Settings" />
-      {authUser && <ChannelTopBar user={authUser} />}
+      <ChannelTopBar user={authUser} />
       <div className="container mx-auto px-10 py-5">
         <SettingsWrapper />
       </div>

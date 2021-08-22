@@ -86,6 +86,11 @@ export default function videosReducer(state = initialState, { type, payload }) {
           user: { ...state.video.user, subscribersCount: state.video.user.subscribersCount - 1 },
         },
       };
+    case videosActionTypes.DELETE_VIDEO:
+      return {
+        ...state,
+        videos: state.videos.filter(video => video.id !== payload),
+      };
     default:
       return state;
   }
