@@ -103,7 +103,7 @@ const VideosTable = () => {
       </Table>
       <Modal title="Edit Video Info" modalOpen={editModalOpen} setModalOpen={setEditModalOpen}>
         <div className="flex align-center justify-around py-10">
-          <VideoForm editedVideo={editedVideo} />
+          <VideoForm editedVideo={editedVideo} setEditModalOpen={setEditModalOpen} />
         </div>
       </Modal>
     </>

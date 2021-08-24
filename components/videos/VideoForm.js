@@ -4,7 +4,7 @@ import useValidation from "../../hooks/useValidation";
 import TextField from "../base/TextField";
 import Button from "../base/Button";
 import Alert from "../base/Alert";
-import { uploadVideo } from "../../store/actions/videosActions";
+import { uploadVideo, updateVideo } from "../../store/actions/videosActions";
 import { useSelector, useDispatch } from "react-redux";
 import Dropzone from "react-dropzone";
 import { fireToast } from "../../global/helpers";
@@ -12,10 +12,13 @@ import Select from "../base/Select";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
 
-const VideoForm = ({ editedVideo }) => {
+const VideoForm = ({ editedVideo, setEditModalOpen }) => {
   // redux
   const dispatch = useDispatch();
-  const serverError = useSelector(state => state.uiReducer.serverErrors.VideoForm);
+  const [serverError, loading] = useSelector(state => [
+    state.uiReducer.serverErrors.VideoForm,
+    state.uiReducer.loadings["VideoForm"],
+  ]);
 
   // form validation
   useEffect(() => {
@@ -45,6 +48,13 @@ const VideoForm = ({ editedVideo }) => {
   };
 
   const handleSubmit = ({ title, tags, description, category }) => {
+    if (editedVideo) {
+      dispatch(updateVideo(editedVideo.id, { title, tags, description, category }))
+        .then(() => setEditModalOpen(false))
+        .catch(() => {});
+      return;
+    }
+
     if (!fileIsValid()) return fireToast("error", "Choose a valid file");
     const formData = new FormData();
     formData.append("title", title);
@@ -53,7 +63,6 @@ const VideoForm = ({ editedVideo }) => {
     if (category && category.length) {
       formData.append("category", category);
     }
-
     formData.append("file", file);
     dispatch(uploadVideo(formData));
   };
@@ -159,8 +168,9 @@ const VideoForm = ({ editedVideo }) => {
           </div>
         </div>
         <div className="px-4 py-3 bg-gray-50 dark:bg-darkGray text-right sm:px-6">
-          <Button type="submit" variant="blue">
-            Upload
+          <Button disabled={loading} type="submit" variant="blue">
+            {loading && <i className="fa fa-spinner fa-spin mr-2"></i>}
+            {editedVideo ? "Save" : "Upload"}
           </Button>
         </div>
       </div>
@@ -170,6 +180,7 @@ const VideoForm = ({ editedVideo }) => {
 
 VideoForm.propTypes = {
   editedVideo: PropTypes.object,
+  setEditModalOpen: PropTypes.func,
 };
 
 export default VideoForm;

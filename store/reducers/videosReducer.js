@@ -91,6 +91,13 @@ export default function videosReducer(state = initialState, { type, payload }) {
         ...state,
         videos: state.videos.filter(video => video.id !== payload),
       };
+    case videosActionTypes.UPDATE_VIDEO:
+      return {
+        ...state,
+        videos: state.videos.map(video =>
+          video.id === payload.videoId ? { ...video, ...payload.newData } : video
+        ),
+      };
     default:
       return state;
   }

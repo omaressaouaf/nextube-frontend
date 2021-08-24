@@ -181,3 +181,26 @@ export const deleteVideo = videoId => async dispatch => {
     nProgress.done();
   }
 };
+
+export const updateVideo = (videoId, newData) => dispatch => {
+  return new Promise(async (resolve, reject) => {
+    const component = "VideoForm";
+    try {
+      dispatch(setLoading(component));
+      await axios.put(`/videos/${videoId}`, newData);
+      dispatch({
+        type: videosActionTypes.UPDATE_VIDEO,
+        payload: {
+          videoId,
+          newData,
+        },
+      });
+      resolve();
+    } catch (err) {
+      dispatch(handleServerError(err, component));
+      reject();
+    } finally {
+      dispatch(clearLoading(component));
+    }
+  });
+};
